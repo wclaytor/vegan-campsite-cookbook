@@ -1,4 +1,5 @@
-Easy Chili:
+# Easy Fire Roasted Black Bean Chili
+
 1 can black beans
 1 can fire roasted tomatoes 
 1 minute rice cup
