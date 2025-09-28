@@ -2,6 +2,8 @@
 
 A modern, single-file Alpine.js application for browsing plant-based recipes perfect for outdoor adventures.
 
+[GitHub Pages Live Preview](https://wclaytor.github.io/vegan-campsite-cookbook/index.html)
+
 ## 🚀 Features
 
 - **Recipe Index**: Automatically loads and displays recipes from `/recipes/*.md` files
