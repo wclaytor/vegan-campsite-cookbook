@@ -1,7 +1,7 @@
 # Easy Fire Roasted Black Bean Chili
 
 ## Description
-A quick and hearty chili perfect for campsite cooking. Uses simple ingredients and one-pot preparation.
+A hearty and flavorful black bean chili featuring fire roasted tomatoes and convenient quick-cooking ingredients for a satisfying meal.
 
 ## Cuisine
 - American
@@ -10,13 +10,13 @@ A quick and hearty chili perfect for campsite cooking. Uses simple ingredients a
 - Lunch / Dinner
 
 ## Course
-- Main
+- Main Course
 
 ## Type
-- Stew / Chili
+- Chili / Stew
 
 ## Preparation Time
-- 45 minutes
+- 45 minutes (including 30 minutes resting time)
 
 ## Servings
 - 4 servings
@@ -26,18 +26,18 @@ A quick and hearty chili perfect for campsite cooking. Uses simple ingredients a
 - 1 can fire roasted tomatoes 
 - 1 minute rice cup
 - 1/2 cup Delish veg soup mix
-- 1 pack Chili seasoning
+- 1 pack chili seasoning
 
-## Steps  
-1. Mix everything in a pot and heat to simmer
-2. Remove from heat, cover, sit for 30 minutes to allow rice and veggies to absorb liquid
-3. Reheat and eat
+## Steps
+1. Mix everything in a pot and heat to simmer.
+2. Remove from heat, cover, and let sit for 30 minutes to allow rice and veggies to absorb liquid.
+3. Reheat and serve.
 
 ## Serving Guidelines
-Serve hot with crusty bread or crackers. Great for cold camping nights.
+Serve hot as a main course. Can be topped with cheese, sour cream, or green onions if desired.
 
-## Notes  
-This is a very flexible recipe - adjust spices and vegetables to taste. Perfect for camping because it uses shelf-stable ingredients.
+## Notes
+This recipe uses convenient pre-packaged ingredients for a quick and easy meal. The resting time is important to allow the rice to fully cook and absorb flavors.
 
 ## Source / Inspiration
-Campsite cooking adaptation of classic chili recipes.
+Family recipe
