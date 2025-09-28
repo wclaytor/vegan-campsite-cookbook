@@ -308,11 +308,22 @@
                 async loadRecipes() {
                     this.loading = true;
                     try {
-                        // Load the known recipe files
-                        const recipeFiles = [
-                            'hummus-moosewood.md',
-                            'chili-fire-roasted.md'
-                        ];
+                        // Load recipe file list from manifest
+                        let recipeFiles = [];
+                        try {
+                            const manifestResponse = await fetch('recipes.json');
+                            if (manifestResponse.ok) {
+                                recipeFiles = await manifestResponse.json();
+                            }
+                        } catch (error) {
+                            console.warn('Could not load recipe manifest, using fallback list:', error);
+                            // Fallback to known recipe files if manifest fails
+                            recipeFiles = [
+                                'hummus-moosewood.md',
+                                'chili-fire-roasted.md',
+                                'peanut-sesame-noodles.md'
+                            ];
+                        }
                         
                         const recipePromises = recipeFiles.map(async (filename) => {
                             try {
