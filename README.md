@@ -32,7 +32,13 @@ A modern, single-file Alpine.js application for browsing plant-based recipes per
 
 ## 🍽️ Adding Recipes
 
-Add new recipes by creating Markdown files in the `/recipes/` folder using this format:
+To add new recipes to the cookbook:
+
+1. **Create the recipe file**: Add a new Markdown file in the `/recipes/` folder (e.g., `my-new-recipe.md`)
+2. **Update the manifest**: Add the filename to the `recipes.json` file in the root directory
+3. **Use the standard format**: Follow the template below for consistent parsing
+
+### Recipe Template
 
 ```markdown
 # Recipe Name
@@ -72,13 +78,29 @@ Additional cooking tips or variations
 Where the recipe came from
 ```
 
+### Example: Adding "Veggie Tacos"
+
+1. Create `/recipes/veggie-tacos.md` with the recipe content
+2. Add `"veggie-tacos.md"` to the `recipes.json` array:
+```json
+[
+    "hummus-moosewood.md",
+    "chili-fire-roasted.md", 
+    "peanut-sesame-noodles.md",
+    "veggie-tacos.md"
+]
+```
+3. The app will automatically load the new recipe on next visit
+
 ## 🔧 Technical Details
 
 - **Built with**: Alpine.js 3.x + Tailwind CSS 3.x + Bootstrap Icons
 - **Architecture**: Single-file standalone HTML application
+- **Recipe Loading**: Dynamic manifest-based system (`recipes.json`)
 - **Deployment**: GitHub Pages compatible
 - **Storage**: Uses localStorage for preferences
 - **Parsing**: Custom Markdown parser for recipe files
+- **Fallback**: Graceful degradation if manifest fails
 
 ## 🌐 GitHub Pages Deployment
 
