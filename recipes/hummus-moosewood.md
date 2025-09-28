@@ -1,5 +1,5 @@
 # Hummus
-Adapted from the Moosewood Cookbook
+Inspired by the Moosewood version
 
 ## Description
 A thick paste or spread made from ground chickpeas and sesame seeds, olive oil, lemon, and garlic, made originally in the Middle East.
