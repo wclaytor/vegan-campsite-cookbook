@@ -1,4 +1,4 @@
-# Peanut Sesame Noodles  
+# Sesame Peanut Noodles  
 
 ## Description  
 Cold, nutty noodles tossed in a flavorful peanut–sesame dressing. Easy to make ahead and great as a quick meal or side dish.  
