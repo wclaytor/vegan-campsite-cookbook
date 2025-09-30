@@ -1,7 +1,14 @@
 # Sesame Peanut Noodles  
 
 ## Description  
-Cold, nutty noodles tossed in a flavorful peanut–sesame dressing. Easy to make ahead and great as a quick meal or side dish.  
+Cold, nutty noodles tossed in a flavorful peanut–sesame dressing. Easy to make ahead and great as a quick meal or side dish.
+
+## Dietary Information
+- Vegan
+- Contains Peanuts
+- Contains Sesame
+- Contains Soy
+- May Contain Gluten (noodles)  
 
 ## Cuisine  
 - Asian-inspired  

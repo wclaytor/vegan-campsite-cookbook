@@ -101,6 +101,26 @@
                             <i class="bi bi-clock mr-1"></i>Quick (< 30min)
                         </button>
                     </div>
+                    
+                    <!-- Dietary Filter Options -->
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Dietary:</div>
+                        <button @click="activeFilter = 'gluten-free'"
+                                :class="activeFilter === 'gluten-free' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-shield-check mr-1"></i>Gluten-Free
+                        </button>
+                        <button @click="activeFilter = 'nut-free'"
+                                :class="activeFilter === 'nut-free' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-x-circle mr-1"></i>Nut-Free
+                        </button>
+                        <button @click="activeFilter = 'soy-free'"
+                                :class="activeFilter === 'soy-free' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-x-circle mr-1"></i>Soy-Free
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -132,6 +152,13 @@
                                     <i class="bi bi-people mr-1"></i>
                                     <span x-text="recipe.servings"></span>
                                 </span>
+                            </div>
+
+                            <!-- Dietary Information -->
+                            <div x-show="recipe.dietaryInfo && recipe.dietaryInfo.length > 0" class="flex flex-wrap gap-1 mb-3">
+                                <template x-for="dietary in recipe.dietaryInfo" :key="dietary">
+                                    <span class="text-xs px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full border border-yellow-200 dark:border-yellow-700" x-text="dietary"></span>
+                                </template>
                             </div>
 
                             <div class="flex items-center justify-between">
@@ -200,6 +227,18 @@
                                     <p class="text-gray-600 dark:text-gray-400" x-text="selectedRecipe.description"></p>
                                 </div>
 
+                                <!-- Dietary Information -->
+                                <div x-show="selectedRecipe.dietaryInfo && selectedRecipe.dietaryInfo.length > 0" class="bg-white dark:bg-gray-800 rounded-lg p-6">
+                                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
+                                        <i class="bi bi-shield-check mr-2"></i>Dietary Information
+                                    </h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        <template x-for="dietary in selectedRecipe.dietaryInfo" :key="dietary">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 border border-yellow-300 dark:border-yellow-700" x-text="dietary"></span>
+                                        </template>
+                                    </div>
+                                </div>
+
                                 <!-- Ingredients -->
                                 <div x-show="selectedRecipe.ingredients" class="bg-white dark:bg-gray-800 rounded-lg p-6">
                                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
@@ -264,7 +303,10 @@
                             recipe.title.toLowerCase().includes(searchLower) ||
                             recipe.description.toLowerCase().includes(searchLower) ||
                             (recipe.cuisine && recipe.cuisine.toLowerCase().includes(searchLower)) ||
-                            (recipe.ingredients && recipe.ingredients.toLowerCase().includes(searchLower))
+                            (recipe.ingredients && recipe.ingredients.toLowerCase().includes(searchLower)) ||
+                            (recipe.dietaryInfo && recipe.dietaryInfo.some(info => 
+                                info.toLowerCase().includes(searchLower)
+                            ))
                         );
                     }
                     
@@ -285,6 +327,24 @@
                                 case 'quick':
                                     return recipe.preparationTime && 
                                            this.extractMinutes(recipe.preparationTime) <= 30;
+                                case 'gluten-free':
+                                    return recipe.dietaryInfo && recipe.dietaryInfo.some(info => 
+                                        info.toLowerCase().includes('gluten-free')
+                                    ) && !recipe.dietaryInfo.some(info => 
+                                        info.toLowerCase().includes('may contain gluten') || 
+                                        info.toLowerCase().includes('contains gluten')
+                                    );
+                                case 'nut-free':
+                                    return recipe.dietaryInfo && !recipe.dietaryInfo.some(info => 
+                                        info.toLowerCase().includes('nuts') || 
+                                        info.toLowerCase().includes('cashew') ||
+                                        info.toLowerCase().includes('almond') ||
+                                        info.toLowerCase().includes('peanut')
+                                    );
+                                case 'soy-free':
+                                    return recipe.dietaryInfo && !recipe.dietaryInfo.some(info => 
+                                        info.toLowerCase().includes('soy')
+                                    );
                                 default:
                                     return true;
                             }
@@ -361,6 +421,7 @@
                         id: filename.replace('.md', ''),
                         title: '',
                         description: '',
+                        dietaryInfo: [],
                         cuisine: '',
                         meal: '',
                         courses: [],
@@ -419,6 +480,9 @@
                         case 'description':
                             recipe.description = contentText;
                             break;
+                        case 'dietary information':
+                            recipe.dietaryInfo = contentText.split('\n').map(d => d.replace(/^-\s*/, '').trim()).filter(d => d);
+                            break;
                         case 'cuisine':
                             recipe.cuisine = contentText.replace(/^-\s*/, '');
                             break;
@@ -471,6 +535,7 @@
                             id: 'sample-hummus',
                             title: 'Classic Hummus',
                             description: 'A creamy, delicious chickpea dip perfect for camping.',
+                            dietaryInfo: ['Vegan', 'Gluten-Free', 'Contains Sesame'],
                             cuisine: 'Middle Eastern',
                             courses: ['Appetizer', 'Side'],
                             preparationTime: '15 minutes',
@@ -482,6 +547,7 @@
                             id: 'sample-chili',
                             title: 'Campfire Black Bean Chili',
                             description: 'A hearty, warming chili perfect for cold camping nights.',
+                            dietaryInfo: ['Vegan', 'Gluten-Free'],
                             cuisine: 'American',
                             courses: ['Main'],
                             preparationTime: '45 minutes',

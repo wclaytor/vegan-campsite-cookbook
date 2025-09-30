@@ -3,6 +3,10 @@
 ## Description
 A hearty and flavorful black bean chili featuring fire roasted tomatoes and convenient quick-cooking ingredients for a satisfying meal.
 
+## Dietary Information
+- Vegan
+- Gluten-Free
+
 ## Cuisine
 - American
 
