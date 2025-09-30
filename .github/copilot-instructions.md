@@ -1,41 +1,36 @@
-# GitHub Copilot Instructions - Alpine.js Standalone HTML Applications
+# GitHub Copilot Instructions - Vegan Campsite Cookbook
 
-## 🎯 Context and Purpose
+## 🎯 Project Context and Purpose
 
-When users ask for standalone HTML applications, tools, utilities, or "single file" solutions, use Alpine.js with Tailwind CSS to create modern, reactive applications that work without servers or build processes. This approach is ideal for internal tools, data analyzers, converters, and utilities that need easy distribution.
+The **Vegan Campsite Cookbook** is a modern, single-file Alpine.js application designed for outdoor enthusiasts who want quick access to plant-based recipes perfect for camping adventures. This project demonstrates best practices for creating standalone HTML applications that work offline and can be easily shared.
 
-## 🚀 When to Recommend This Approach
+### Core Technology Stack
+- **Alpine.js 3.x**: Lightweight reactive framework for interactivity
+- **Tailwind CSS**: Utility-first CSS framework via CDN
+- **Bootstrap Icons**: Comprehensive icon library
+- **Markdown**: Recipe content format for easy editing
+- **JSON**: Recipe manifest for dynamic loading
 
-### ✅ USE Alpine.js Standalone When User Wants:
-- Single HTML file that works offline
-- Tool to share via email or file transfer
-- No server or hosting required
-- Internal company tool without IT deployment
-- Data analyzer or converter
-- Quick prototype or demo
-- Educational tool for students
-- "Just double-click to open" simplicity
+### Project Architecture
+This is a **standalone single-file application** that:
+- Works completely offline after initial load
+- Requires no build process or server
+- Can be shared via email, USB, or any file transfer method
+- Loads recipes dynamically from markdown files
+- Provides responsive design for mobile camping use
 
-### ❌ DON'T Use When User Needs:
-- SEO optimization
-- Large-scale application
-- Backend API integration
-- User authentication
-- Database persistence
-- Real-time collaboration
-- Mobile app
+## 🚀 Alpine.js Development Best Practices
 
-## 📋 Core Template to Start With
+When working on this project, always follow these Alpine.js patterns:
 
-Always begin with this structure:
-
+### 1. Core Template Structure
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[App Name]</title>
+    <title>Vegan Campsite Cookbook</title>
     
     <!-- Alpine.js for reactivity -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -43,7 +38,7 @@ Always begin with this structure:
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Bootstrap Icons (recommended) -->
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <style>
@@ -51,12 +46,12 @@ Always begin with this structure:
     </style>
 </head>
 <body>
-    <div x-data="app()" x-cloak class="min-h-screen bg-gray-50 p-6">
+    <div x-data="cookbookApp()" x-init="init()" x-cloak class="min-h-screen">
         <!-- App content here -->
     </div>
     
     <script>
-        function app() {
+        function cookbookApp() {
             return {
                 // State and methods
             }
@@ -66,381 +61,330 @@ Always begin with this structure:
 </html>
 ```
 
-## 🎨 Key Implementation Patterns
-
-### 1. State Management Pattern
-
+### 2. State Management Pattern
 ```javascript
-function app() {
+function cookbookApp() {
     return {
         // === STATE ===
-        data: [],
+        recipes: [],
         searchTerm: '',
-        filter: 'all',
+        selectedFilter: 'all',
+        darkMode: false,
         loading: false,
         
         // === COMPUTED PROPERTIES ===
-        get filteredData() {
-            return this.data.filter(item => {
-                const matchesSearch = item.name.toLowerCase()
+        get filteredRecipes() {
+            return this.recipes.filter(recipe => {
+                const matchesSearch = recipe.name.toLowerCase()
+                    .includes(this.searchTerm.toLowerCase()) ||
+                    recipe.description.toLowerCase()
                     .includes(this.searchTerm.toLowerCase());
-                const matchesFilter = this.filter === 'all' || 
-                    item.status === this.filter;
+                const matchesFilter = this.selectedFilter === 'all' || 
+                    recipe.category === this.selectedFilter;
                 return matchesSearch && matchesFilter;
             });
         },
         
-        get statistics() {
-            return {
-                total: this.data.length,
-                active: this.data.filter(d => d.active).length
-            };
-        },
-        
         // === METHODS ===
-        async loadData() {
+        async loadRecipes() {
             this.loading = true;
-            // Process data
+            // Load recipe logic
             this.loading = false;
         }
     }
 }
 ```
 
-### 2. File Upload Pattern
-
-```html
-<!-- HTML -->
-<label class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-        <i class="bi bi-cloud-upload text-4xl text-gray-400 mb-3"></i>
-        <p class="mb-2 text-sm text-gray-700">
-            <span class="font-semibold">Click to upload</span> or drag and drop
-        </p>
-    </div>
-    <input type="file" class="hidden" multiple accept=".csv,.json,.xml"
-           @change="handleFileUpload($event)" />
-</label>
-
-<!-- JavaScript -->
-async handleFileUpload(event) {
-    const files = Array.from(event.target.files);
-    for (const file of files) {
-        const text = await file.text();
-        // Process file based on type
-        if (file.name.endsWith('.json')) {
-            this.data = JSON.parse(text);
-        } else if (file.name.endsWith('.csv')) {
-            this.processCSV(text);
-        }
-    }
-}
-```
-
 ### 3. Modal Pattern (CRITICAL - Use Inline Styles)
-
 ```html
-<!-- ALWAYS use this exact pattern for scrollable modals -->
-<div x-show="showModal" 
-     @click="showModal = false"
-     class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-8 z-50">
+<!-- Recipe detail modal -->
+<div x-show="selectedRecipe" 
+     @click="selectedRecipe = null"
+     class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
     <div @click.stop 
-         class="bg-white rounded-lg shadow-xl w-full max-w-4xl" 
-         style="height: 80vh"> <!-- INLINE STYLE REQUIRED -->
+         class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-4xl" 
+         style="height: 80vh">
         
         <!-- Fixed Header -->
-        <div class="bg-white p-6 border-b rounded-t-lg">
-            <h3 class="text-lg font-semibold">Title</h3>
+        <div class="bg-white dark:bg-gray-800 p-6 border-b dark:border-gray-700 rounded-t-lg">
+            <h3 class="text-xl font-bold" x-text="selectedRecipe?.name"></h3>
         </div>
         
         <!-- Scrollable Content -->
-        <div class="bg-gray-50 p-6 overflow-y-scroll" 
-             style="height: calc(80vh - 120px)"> <!-- INLINE STYLE REQUIRED -->
-            <!-- Content -->
+        <div class="bg-gray-50 dark:bg-gray-900 p-6 overflow-y-scroll" 
+             style="height: calc(80vh - 120px)">
+            <!-- Recipe content -->
         </div>
     </div>
 </div>
 ```
 
-### 4. Search and Filter UI
-
-```html
-<!-- Search bar -->
-<div class="relative">
-    <i class="bi bi-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-    <input x-model="searchTerm" 
-           type="text" 
-           placeholder="Search..."
-           class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-</div>
-
-<!-- Filter buttons -->
-<div class="flex space-x-2">
-    <button @click="filter = 'all'"
-            :class="filter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200'"
-            class="px-4 py-2 rounded-lg">
-        All
-    </button>
-    <button @click="filter = 'active'"
-            :class="filter === 'active' ? 'bg-blue-500 text-white' : 'bg-gray-200'"
-            class="px-4 py-2 rounded-lg">
-        Active
-    </button>
-</div>
-```
-
-### 5. Table with Alpine.js
-
-```html
-<table class="min-w-full divide-y divide-gray-200">
-    <thead class="bg-gray-50">
-        <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-        </tr>
-    </thead>
-    <tbody class="bg-white divide-y divide-gray-200">
-        <template x-for="item in filteredData" :key="item.id">
-            <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4" x-text="item.name"></td>
-                <td class="px-6 py-4">
-                    <span :class="{
-                        'text-green-600': item.status === 'active',
-                        'text-red-600': item.status === 'inactive'
-                    }" x-text="item.status"></span>
-                </td>
-            </tr>
-        </template>
-    </tbody>
-</table>
-```
-
-## 💡 Common Feature Implementations
-
-### Copy to Clipboard
+### 4. Recipe Loading Pattern
 ```javascript
-async copyToClipboard(text) {
+async loadRecipes() {
     try {
-        await navigator.clipboard.writeText(text);
-        alert('Copied to clipboard!');
-    } catch (err) {
-        // Fallback for older browsers
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-        alert('Copied to clipboard!');
+        // Load recipe manifest
+        const response = await fetch('recipes.json');
+        const recipeFiles = await response.json();
+        
+        // Load each recipe markdown file
+        const recipePromises = recipeFiles.map(async (filename) => {
+            const recipeResponse = await fetch(`recipes/${filename}`);
+            const markdown = await recipeResponse.text();
+            return this.parseRecipeMarkdown(markdown, filename);
+        });
+        
+        this.recipes = await Promise.all(recipePromises);
+    } catch (error) {
+        console.error('Error loading recipes:', error);
     }
 }
 ```
 
-### Export Data as JSON
+### 5. Dark Mode Implementation
 ```javascript
-exportData() {
-    const dataStr = JSON.stringify(this.data, null, 2);
-    const blob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'export.json';
-    a.click();
-    URL.revokeObjectURL(url);
+// Dark mode toggle
+toggleDarkMode() {
+    this.darkMode = !this.darkMode;
+    localStorage.setItem('darkMode', this.darkMode);
+    document.documentElement.classList.toggle('dark', this.darkMode);
 }
-```
 
-### Generate Markdown Report
-```javascript
-generateMarkdown() {
-    let md = `# Report\n\n`;
-    md += `Generated: ${new Date().toLocaleString()}\n\n`;
-    md += `## Summary\n\n`;
-    md += `Total items: ${this.data.length}\n\n`;
-    md += `## Details\n\n`;
-    this.data.forEach(item => {
-        md += `- **${item.name}**: ${item.value}\n`;
-    });
-    return md;
-}
-```
-
-### Local Storage Persistence
-```javascript
-// In the app function
+// Initialize dark mode from localStorage
 init() {
-    // Load saved data on startup
-    const saved = localStorage.getItem('appData');
-    if (saved) {
-        this.data = JSON.parse(saved);
-    }
+    const savedDarkMode = localStorage.getItem('darkMode');
+    this.darkMode = savedDarkMode === 'true';
+    document.documentElement.classList.toggle('dark', this.darkMode);
+    this.loadRecipes();
+}
+```
+
+## 🏗️ Role-Based Development Methodology
+
+This project follows a structured **role-based development approach** where different aspects of development are handled by specialized roles. When working on features, adopt the appropriate role perspective to ensure comprehensive, high-quality solutions.
+
+### The Five Core Roles
+
+#### 1. **Product-Owner** - Strategy & Vision
+**When to adopt**: Defining requirements, user stories, business value
+- Focus on user needs and camping scenarios  
+- Define acceptance criteria and success metrics
+- Prioritize features based on outdoor cooking use cases
+- [Role Definition](./roles/Product-Owner.md)
+
+#### 2. **Architect** - Technical Blueprint  
+**When to adopt**: System design, technology choices, performance strategy
+- Design Alpine.js application architecture
+- Make technology stack decisions (Alpine.js + Tailwind + Bootstrap Icons)
+- Define performance requirements for mobile/offline use
+- [Role Definition](./roles/Architect.md)
+
+#### 3. **Designer** - User Experience
+**When to adopt**: UI/UX design, accessibility, mobile optimization
+- Create mobile-first responsive designs
+- Ensure WCAG 2.1 AA accessibility compliance
+- Design dark mode and theming systems
+- [Role Definition](./roles/Designer.md)
+
+#### 4. **Developer** - Implementation
+**When to adopt**: Coding features, Alpine.js patterns, technical implementation
+- Implement Alpine.js reactive patterns
+- Write clean, performant JavaScript code
+- Follow established coding standards and patterns
+- [Role Definition](./roles/Developer.md)
+
+#### 5. **QA-Engineer** - Quality & Validation
+**When to adopt**: Testing, validation, cross-browser compatibility
+- Test Alpine.js functionality across devices
+- Validate accessibility and mobile responsiveness  
+- Ensure offline functionality works correctly
+- [Role Definition](./roles/QA-Engineer.md)
+
+## 🔄 Multi-Role Collaboration Pattern
+
+For complex requests, adopt multiple role perspectives:
+
+### Example: "Add recipe rating feature"
+
+**Product-Owner perspective:**
+```markdown
+**User Story**: As a camper, I want to rate recipes so I can remember which ones worked well for outdoor cooking.
+
+**Acceptance Criteria**:
+- Users can rate recipes 1-5 stars
+- Ratings persist in localStorage
+- Average ratings display on recipe cards
+- Ratings are mobile-friendly for campsite use
+```
+
+**Architect perspective:**
+```javascript
+// Rating system architecture
+ratingSystem: {
+    storage: 'localStorage', // Offline-first approach
+    scale: '1-5 stars',
+    persistence: 'per-device', // No server required
+    performance: 'Computed averages cached'
+}
+```
+
+**Designer perspective:**
+```html
+<!-- Mobile-optimized star rating component -->
+<div class="flex items-center space-x-1">
+    <template x-for="star in 5" :key="star">
+        <button @click="setRating(recipe.id, star)"
+                :class="star <= (ratings[recipe.id] || 0) ? 
+                    'text-yellow-400' : 'text-gray-300'"
+                class="text-xl hover:text-yellow-300 transition-colors">
+            <i class="bi bi-star-fill"></i>
+        </button>
+    </template>
+</div>
+```
+
+**Developer implementation:**
+```javascript
+// Rating system methods
+setRating(recipeId, rating) {
+    this.ratings[recipeId] = rating;
+    localStorage.setItem('recipeRatings', JSON.stringify(this.ratings));
 },
 
-saveData() {
-    localStorage.setItem('appData', JSON.stringify(this.data));
+get averageRating() {
+    const ratings = Object.values(this.ratings);
+    return ratings.length > 0 ? 
+        ratings.reduce((a, b) => a + b, 0) / ratings.length : 0;
 }
 ```
 
-## ⚠️ Critical Rules and Pitfalls
-
-### ALWAYS Follow These Rules:
-
-1. **Modal Heights**: ALWAYS use inline styles for modal dimensions
-   ```html
-   <!-- ✅ CORRECT -->
-   <div style="height: 80vh">
-   
-   <!-- ❌ WRONG - Won't scroll properly -->
-   <div class="h-[80vh]">
-   ```
-
-2. **Scrollable Content**: Use `overflow-y-scroll` not `overflow-y-auto`
-   ```html
-   <!-- ✅ CORRECT - Forces scrollbar -->
-   <div class="overflow-y-scroll">
-   
-   <!-- ❌ WRONG - Scrollbar may not appear -->
-   <div class="overflow-y-auto">
-   ```
-
-3. **Use x-cloak**: Prevent flash of unstyled content
-   ```html
-   <!-- ✅ ALWAYS include -->
-   <style>[x-cloak] { display: none !important; }</style>
-   <div x-data="app()" x-cloak>
-   ```
-
-4. **Computed Properties**: Use getters for derived data
-   ```javascript
-   // ✅ CORRECT - Reactive
-   get filtered() { return this.data.filter(...) }
-   
-   // ❌ WRONG - Not reactive
-   filtered: this.data.filter(...)
-   ```
-
-5. **Event Handlers**: Use Alpine syntax
-   ```html
-   <!-- ✅ CORRECT -->
-   <button @click="handleClick">
-   
-   <!-- ❌ WRONG -->
-   <button onclick="handleClick()">
-   ```
-
-## 📏 Code Quality Guidelines
-
-### File Size Targets
-- **HTML + JS**: Keep under 2000 lines
-- **Inline Styles**: Minimal, only for critical dimensions
-- **Components**: If over 500 lines, suggest splitting logic
-
-### Performance Considerations
-- Use `x-show` for frequently toggled elements
-- Use `x-if` only for rarely shown elements
-- Always use `:key` in `x-for` loops
-- Debounce search inputs (300ms recommended)
-
-### Naming Conventions
-```javascript
-// State: noun
-data: [],
-searchTerm: '',
-isLoading: false,
-
-// Computed: get + noun
-get filteredData() {},
-get statistics() {},
-
-// Methods: verb + noun
-handleFileUpload() {},
-processData() {},
-generateReport() {}
+**QA-Engineer validation:**
+```markdown
+**Test Scenarios**:
+- [ ] Star ratings work on touch devices
+- [ ] Ratings persist after page reload
+- [ ] Rating UI is accessible with keyboard navigation
+- [ ] Performance remains smooth with 100+ rated recipes
 ```
 
-## 🎯 Response Strategy
+## 📚 Role Collaboration Resources
 
-When user asks for a standalone tool:
+Understanding how roles work together is crucial for effective development:
 
-1. **Confirm Requirements**
-   - "Would you like this as a single HTML file that works offline?"
-   - "Will users need to save/export data?"
+### **Core Collaboration Guide**
+[Roles.md](./docs/guides/Roles.md) - Complete role collaboration methodology including:
+- Role hierarchy and dependencies
+- Collaboration patterns and workflows
+- Communication standards and escalation paths
+- Success metrics and best practices
 
-2. **Start with Core Template**
-   - Use the basic Alpine.js template
-   - Add only needed features
+### **GitHub Copilot Role Usage**
+[Roles-Copilot.md](./docs/guides/Roles-Copilot.md) - Specific guidance for AI-assisted development:
+- When to adopt each role perspective
+- Role detection keywords and triggers
+- Multi-role response patterns
+- Practical usage examples
 
-3. **Implement Features Incrementally**
-   - File upload first (if needed)
-   - Then data processing
-   - Then UI features
-   - Finally, export/reporting
+## 🎯 Project-Specific Guidelines
 
-4. **Test Scenarios to Mention**
-   - "Save as .html and double-click to open"
-   - "Works offline after first load"
-   - "Share via email or USB drive"
+### Recipe Content Standards
+```markdown
+# Recipe Name
 
-## 📚 Reference Patterns
+## Description
+Brief description perfect for camping scenarios
 
-Point users to common patterns:
-- **Data Analyzer**: File upload → Process → Display table → Export
-- **Converter Tool**: Input → Transform → Preview → Download
-- **Report Generator**: Load data → Filter → Generate markdown → Copy
-- **Calculator**: Input form → Compute → Show results → Save history
+## Cuisine
+- Cuisine type (Italian, Mexican, etc.)
 
-## 💬 Example Responses
+## Category
+- Main Dish / Appetizer / Quick Recipe
 
-### When user asks: "I need a CSV analyzer tool"
-```
-I'll create a standalone HTML file that can analyze CSV files offline. 
-This will use Alpine.js for reactivity and work by just opening the 
-HTML file in your browser - no server needed.
+## Prep Time
+- X minutes
 
-[Provide full HTML with CSV parsing, table display, and statistics]
-```
+## Cook Time
+- X minutes (consider camping equipment limitations)
 
-### When user asks: "Can this work without internet?"
-```
-Yes! After the initial load of CDN resources (Alpine.js and Tailwind), 
-the app works completely offline. For true offline use, you can also 
-download and inline the CDN resources.
-```
+## Ingredients
+- Ingredient with camping-friendly measurements
+- Focus on non-perishable and easy-to-pack items
 
-### When user asks: "How do I share this with my team?"
-```
-Simply save the HTML file and share it via:
-- Email attachment
-- Shared drive
-- USB drive
-- Slack/Teams file upload
+## Instructions
+1. Step-by-step instructions
+2. Written for outdoor cooking conditions
+3. Include campfire/portable stove considerations
 
-Recipients just save and double-click to open - no installation needed!
+## Camping Notes
+- Equipment needed
+- Storage and prep tips for outdoor cooking
+- Nutritional benefits for active outdoor adventures
 ```
 
-## 🚫 Anti-Patterns to Avoid
+### Performance Requirements
+- **Initial Load**: < 2 seconds on 3G connection
+- **Recipe Search**: < 100ms response time
+- **Offline Functionality**: Must work after initial CDN loads
+- **Mobile Optimization**: Touch targets ≥ 44px, thumb-friendly navigation
+- **Memory Usage**: Handle 100+ recipes without performance degradation
 
-Never suggest:
-- jQuery for new projects (Alpine.js is better)
-- Complex build processes for simple tools
-- Server-side code for standalone requirements
-- React/Vue via CDN (too complex for standalone)
-- Vanilla JS for reactive UIs (Alpine.js is simpler)
+### Accessibility Standards  
+- **WCAG 2.1 AA Compliance**: All interactive elements keyboard accessible
+- **Screen Reader Support**: Proper ARIA labels and semantic HTML
+- **Color Contrast**: 4.5:1 ratio for normal text, 3:1 for large text
+- **Touch Accessibility**: Clear focus states and adequate touch targets
 
-## ✅ Success Metrics
+### Browser Compatibility
+- **Modern Browsers**: Chrome, Firefox, Safari, Edge (last 2 versions)
+- **Mobile Browsers**: iOS Safari, Chrome Mobile, Samsung Internet
+- **Progressive Enhancement**: Graceful degradation for older browsers
+- **Offline Support**: Service Worker not required (CDN caching sufficient)
 
-A good standalone HTML app has:
-- Single file under 100KB
-- Works with file:// protocol
-- No external dependencies after load
-- Responsive design
-- Professional appearance
-- Fast performance with 1000+ items
-- Clear error messages
-- Export capabilities
+## 🚀 Development Workflow
+
+### Feature Development Process
+1. **Product-Owner**: Define user story and acceptance criteria
+2. **Architect**: Design technical approach using Alpine.js patterns
+3. **Designer**: Create mobile-first UI specifications  
+4. **Developer**: Implement using established patterns and conventions
+5. **QA-Engineer**: Validate functionality, accessibility, and mobile experience
+
+### Code Quality Standards
+- **Consistent Naming**: Use camelCase for JavaScript, kebab-case for CSS classes
+- **Comment Complex Logic**: Especially Alpine.js reactive patterns and computed properties
+- **Error Handling**: Graceful fallbacks for network failures and missing data
+- **Performance**: Debounce search inputs, optimize DOM operations
+- **Testing**: Manual testing on mobile devices and various screen sizes
+
+### Documentation Requirements
+- **Code Comments**: Explain Alpine.js patterns and business logic
+- **Recipe Format**: Follow established markdown template
+- **Change Documentation**: Update relevant guides when adding new patterns
+- **User Instructions**: Keep README.md updated with new features
+
+## 💡 Best Practices Summary
+
+### For Alpine.js Development:
+- Always use `x-cloak` to prevent flash of unstyled content
+- Prefer computed properties (getters) for derived state
+- Use inline styles for modal dimensions (Tailwind classes don't work)
+- Implement proper error handling for async operations
+- Optimize for mobile-first responsive design
+
+### For Camping Cookbook Features:
+- Focus on offline-first functionality
+- Design for outdoor lighting conditions (high contrast)
+- Consider limited storage and preparation capabilities
+- Emphasize nutritious, energy-rich plant-based options
+- Include practical camping tips and equipment notes
+
+### For Role-Based Development:
+- Match the role perspective to the type of request
+- Use multiple roles for comprehensive feature development  
+- Document decisions using role-specific methodologies
+- Collaborate across roles for complex architectural decisions
+- Maintain role consistency and expertise throughout development
 
 ---
 
-*Use these instructions to help users create powerful, modern standalone HTML applications that are easy to distribute and use.*
+**This project demonstrates how modern Alpine.js applications can provide rich, interactive experiences while maintaining the simplicity and portability of a single HTML file. Use the role-based approach to ensure every aspect of development meets professional standards while serving the unique needs of outdoor cooking enthusiasts.**
