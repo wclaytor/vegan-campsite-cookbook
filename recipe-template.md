@@ -4,6 +4,9 @@ Optional subheader
 ## Description
 Optional description
 
+## Dietary Information
+- Vegan / Vegetarian / Contains Peanuts / Contains Soy / Etc...
+
 ## Cuisine
 - Country / Region
 
