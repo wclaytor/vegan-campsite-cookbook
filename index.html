@@ -244,7 +244,7 @@
                                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
                                         <i class="bi bi-list-ul mr-2"></i>Ingredients
                                     </h3>
-                                    <div x-html="selectedRecipe.ingredients" class="prose dark:prose-invert max-w-none"></div>
+                                    <div x-html="selectedRecipe.ingredients" class="text-gray-600 dark:text-gray-400 max-w-none"></div>
                                 </div>
 
                                 <!-- Steps -->
@@ -252,25 +252,25 @@
                                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
                                         <i class="bi bi-list-ol mr-2"></i>Instructions
                                     </h3>
-                                    <div x-html="selectedRecipe.steps" class="prose dark:prose-invert max-w-none"></div>
+                                    <div x-html="selectedRecipe.steps" class="text-gray-600 dark:text-gray-400 max-w-none"></div>
                                 </div>
 
                                 <!-- Additional Info -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div x-show="selectedRecipe.servingGuidelines" class="bg-white dark:bg-gray-800 rounded-lg p-6">
                                         <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Serving Guidelines</h3>
-                                        <div x-html="selectedRecipe.servingGuidelines" class="prose dark:prose-invert max-w-none"></div>
+                                        <div x-html="selectedRecipe.servingGuidelines" class="text-gray-600 dark:text-gray-400 max-w-none"></div>
                                     </div>
                                     <div x-show="selectedRecipe.notes" class="bg-white dark:bg-gray-800 rounded-lg p-6">
                                         <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Notes</h3>
-                                        <div x-html="selectedRecipe.notes" class="prose dark:prose-invert max-w-none"></div>
+                                        <div x-html="selectedRecipe.notes" class="text-gray-600 dark:text-gray-400 max-w-none"></div>
                                     </div>
                                 </div>
 
                                 <!-- Source -->
                                 <div x-show="selectedRecipe.source" class="bg-white dark:bg-gray-800 rounded-lg p-6">
                                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Source</h3>
-                                    <div x-html="selectedRecipe.source" class="prose dark:prose-invert max-w-none"></div>
+                                    <div x-html="selectedRecipe.source" class="text-gray-600 dark:text-gray-400 max-w-none"></div>
                                 </div>
                             </div>
                         </template>
