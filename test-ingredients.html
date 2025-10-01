@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Ingredients Extraction</title>
+</head>
+<body>
+    <h1>Testing Ingredients Extraction</h1>
+    <div id="output"></div>
+    
+    <script>
+        // Test HTML similar to what the app generates
+        const testHtml = '<ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-200"><li class="mb-1">1 can black beans</li><li class="mb-1">1 can fire roasted tomatoes</li><li class="mb-1">1 minute rice cup</li></ul>';
+        
+        function extractIngredientsFromHtml(html) {
+            if (!html) return [];
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const items = doc.querySelectorAll('li');
+            return Array.from(items).map(item => item.textContent.trim()).filter(text => text);
+        }
+        
+        const result = extractIngredientsFromHtml(testHtml);
+        
+        const output = document.getElementById('output');
+        output.innerHTML = '<h2>Extracted Ingredients:</h2><ul>' + 
+            result.map(ing => '<li>' + ing + '</li>').join('') + 
+            '</ul>';
+        
+        console.log('Extracted ingredients:', result);
+    </script>
+</body>
+</html>
