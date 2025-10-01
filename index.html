@@ -127,6 +127,38 @@
                             <i class="bi bi-x-circle mr-1"></i>Soy-Free
                         </button>
                     </div>
+
+                    <!-- Sorting and Grouping Options -->
+                    <div class="flex flex-wrap gap-4 mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
+                        <!-- Sort By Dropdown -->
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm text-gray-600 dark:text-gray-400">
+                                <i class="bi bi-sort-down mr-1"></i>Sort by:
+                            </label>
+                            <select x-model="sortBy" 
+                                    @change="setSortBy(sortBy)"
+                                    class="px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-300">
+                                <option value="alphabetical">Alphabetical</option>
+                                <option value="date-added">Date Added</option>
+                            </select>
+                        </div>
+
+                        <!-- Group By Dropdown -->
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm text-gray-600 dark:text-gray-400">
+                                <i class="bi bi-collection mr-1"></i>Group by:
+                            </label>
+                            <select x-model="groupBy" 
+                                    @change="setGroupBy(groupBy)"
+                                    class="px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-300">
+                                <option value="none">None</option>
+                                <option value="cuisine">Cuisine</option>
+                                <option value="meal">Meal</option>
+                                <option value="course">Course</option>
+                                <option value="type">Type</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -137,89 +169,113 @@
             </div>
 
             <!-- Recipe Grid (Card View) -->
-            <div x-show="!loading && recipes.length > 0 && viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <template x-for="recipe in filteredRecipes" :key="recipe.id">
-                    <div class="recipe-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer transition-colors duration-300"
-                         @click="openRecipeModal(recipe)">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2" x-text="recipe.title"></h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2" x-text="recipe.description"></p>
-                            
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span x-show="recipe.cuisine" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
-                                    <i class="bi bi-globe mr-1"></i>
-                                    <span x-text="recipe.cuisine"></span>
-                                </span>
-                                <span x-show="recipe.preparationTime" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200">
-                                    <i class="bi bi-clock mr-1"></i>
-                                    <span x-text="recipe.preparationTime"></span>
-                                </span>
-                                <span x-show="recipe.servings" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200">
-                                    <i class="bi bi-people mr-1"></i>
-                                    <span x-text="recipe.servings"></span>
-                                </span>
-                            </div>
+            <div x-show="!loading && recipes.length > 0 && viewMode === 'card'" class="space-y-6">
+                <template x-for="group in groupedRecipes" :key="group.group || 'none'">
+                    <div>
+                        <!-- Group Header -->
+                        <h2 x-show="group.group" 
+                            class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 pb-2 border-b-2 border-green-500" 
+                            x-text="group.group"></h2>
+                        
+                        <!-- Recipe Cards in Group -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <template x-for="recipe in group.recipes" :key="recipe.id">
+                                <div class="recipe-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer transition-colors duration-300"
+                                     @click="openRecipeModal(recipe)">
+                                    <div class="p-6">
+                                        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2" x-text="recipe.title"></h3>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2" x-text="recipe.description"></p>
+                                        
+                                        <div class="flex flex-wrap gap-2 mb-4">
+                                            <span x-show="recipe.cuisine" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                                                <i class="bi bi-globe mr-1"></i>
+                                                <span x-text="recipe.cuisine"></span>
+                                            </span>
+                                            <span x-show="recipe.preparationTime" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200">
+                                                <i class="bi bi-clock mr-1"></i>
+                                                <span x-text="recipe.preparationTime"></span>
+                                            </span>
+                                            <span x-show="recipe.servings" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200">
+                                                <i class="bi bi-people mr-1"></i>
+                                                <span x-text="recipe.servings"></span>
+                                            </span>
+                                        </div>
 
-                            <!-- Dietary Information -->
-                            <div x-show="recipe.dietaryInfo && recipe.dietaryInfo.length > 0" class="flex flex-wrap gap-1 mb-3">
-                                <template x-for="dietary in recipe.dietaryInfo" :key="dietary">
-                                    <span class="text-xs px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full border border-yellow-200 dark:border-yellow-700" x-text="dietary"></span>
-                                </template>
-                            </div>
+                                        <!-- Dietary Information -->
+                                        <div x-show="recipe.dietaryInfo && recipe.dietaryInfo.length > 0" class="flex flex-wrap gap-1 mb-3">
+                                            <template x-for="dietary in recipe.dietaryInfo" :key="dietary">
+                                                <span class="text-xs px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full border border-yellow-200 dark:border-yellow-700" x-text="dietary"></span>
+                                            </template>
+                                        </div>
 
-                            <div class="flex items-center justify-between">
-                                <div class="flex flex-wrap gap-1">
-                                    <template x-for="course in recipe.courses" :key="course">
-                                        <span class="text-xs px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full" x-text="course"></span>
-                                    </template>
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex flex-wrap gap-1">
+                                                <template x-for="course in recipe.courses" :key="course">
+                                                    <span class="text-xs px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full" x-text="course"></span>
+                                                </template>
+                                            </div>
+                                            <i class="bi bi-arrow-right-circle text-green-500 text-lg"></i>
+                                        </div>
+                                    </div>
                                 </div>
-                                <i class="bi bi-arrow-right-circle text-green-500 text-lg"></i>
-                            </div>
+                            </template>
                         </div>
                     </div>
                 </template>
             </div>
 
             <!-- Recipe List (List View) -->
-            <div x-show="!loading && recipes.length > 0 && viewMode === 'list'" class="space-y-3">
-                <template x-for="recipe in filteredRecipes" :key="recipe.id">
-                    <div class="recipe-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer transition-colors duration-300"
-                         @click="openRecipeModal(recipe)">
-                        <div class="p-4 md:p-6">
-                            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                                <!-- Title and Description -->
-                                <div class="flex-1 min-w-0">
-                                    <h3 class="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-100 mb-1" x-text="recipe.title"></h3>
-                                    <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-1" x-text="recipe.description"></p>
+            <div x-show="!loading && recipes.length > 0 && viewMode === 'list'" class="space-y-6">
+                <template x-for="group in groupedRecipes" :key="group.group || 'none'">
+                    <div>
+                        <!-- Group Header -->
+                        <h2 x-show="group.group" 
+                            class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 pb-2 border-b-2 border-green-500" 
+                            x-text="group.group"></h2>
+                        
+                        <!-- Recipe List in Group -->
+                        <div class="space-y-3">
+                            <template x-for="recipe in group.recipes" :key="recipe.id">
+                                <div class="recipe-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer transition-colors duration-300"
+                                     @click="openRecipeModal(recipe)">
+                                    <div class="p-4 md:p-6">
+                                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                                            <!-- Title and Description -->
+                                            <div class="flex-1 min-w-0">
+                                                <h3 class="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-100 mb-1" x-text="recipe.title"></h3>
+                                                <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-1" x-text="recipe.description"></p>
+                                            </div>
+                                            
+                                            <!-- Metadata -->
+                                            <div class="flex flex-wrap items-center gap-2 md:gap-3">
+                                                <span x-show="recipe.cuisine" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 whitespace-nowrap">
+                                                    <i class="bi bi-globe mr-1"></i>
+                                                    <span x-text="recipe.cuisine"></span>
+                                                </span>
+                                                <span x-show="recipe.preparationTime" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 whitespace-nowrap">
+                                                    <i class="bi bi-clock mr-1"></i>
+                                                    <span x-text="recipe.preparationTime"></span>
+                                                </span>
+                                                <span x-show="recipe.servings" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 whitespace-nowrap">
+                                                    <i class="bi bi-people mr-1"></i>
+                                                    <span x-text="recipe.servings"></span>
+                                                </span>
+                                                <i class="bi bi-arrow-right-circle text-green-500 text-lg ml-2"></i>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Tags Row -->
+                                        <div class="flex flex-wrap gap-2 mt-3">
+                                            <template x-for="course in recipe.courses" :key="course">
+                                                <span class="text-xs px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full" x-text="course"></span>
+                                            </template>
+                                            <template x-for="dietary in recipe.dietaryInfo" :key="dietary">
+                                                <span class="text-xs px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full border border-yellow-200 dark:border-yellow-700" x-text="dietary"></span>
+                                            </template>
+                                        </div>
+                                    </div>
                                 </div>
-                                
-                                <!-- Metadata -->
-                                <div class="flex flex-wrap items-center gap-2 md:gap-3">
-                                    <span x-show="recipe.cuisine" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 whitespace-nowrap">
-                                        <i class="bi bi-globe mr-1"></i>
-                                        <span x-text="recipe.cuisine"></span>
-                                    </span>
-                                    <span x-show="recipe.preparationTime" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 whitespace-nowrap">
-                                        <i class="bi bi-clock mr-1"></i>
-                                        <span x-text="recipe.preparationTime"></span>
-                                    </span>
-                                    <span x-show="recipe.servings" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 whitespace-nowrap">
-                                        <i class="bi bi-people mr-1"></i>
-                                        <span x-text="recipe.servings"></span>
-                                    </span>
-                                    <i class="bi bi-arrow-right-circle text-green-500 text-lg ml-2"></i>
-                                </div>
-                            </div>
-                            
-                            <!-- Tags Row -->
-                            <div class="flex flex-wrap gap-2 mt-3">
-                                <template x-for="course in recipe.courses" :key="course">
-                                    <span class="text-xs px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full" x-text="course"></span>
-                                </template>
-                                <template x-for="dietary in recipe.dietaryInfo" :key="dietary">
-                                    <span class="text-xs px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full border border-yellow-200 dark:border-yellow-700" x-text="dietary"></span>
-                                </template>
-                            </div>
+                            </template>
                         </div>
                     </div>
                 </template>
@@ -343,6 +399,8 @@
                 viewMode: 'card', // 'card' or 'list'
                 showRecipeModal: false,
                 selectedRecipe: null,
+                groupBy: 'none', // 'none', 'cuisine', 'meal', 'course', 'type'
+                sortBy: 'alphabetical', // 'alphabetical', 'date-added'
 
                 // === COMPUTED PROPERTIES ===
                 get filteredRecipes() {
@@ -403,7 +461,56 @@
                         });
                     }
                     
+                    // Apply sorting
+                    filtered = this.sortRecipes(filtered);
+                    
                     return filtered;
+                },
+
+                get groupedRecipes() {
+                    const recipes = this.filteredRecipes;
+                    
+                    if (this.groupBy === 'none') {
+                        return [{ group: null, recipes: recipes }];
+                    }
+                    
+                    const groups = {};
+                    
+                    recipes.forEach(recipe => {
+                        let groupKeys = [];
+                        
+                        switch (this.groupBy) {
+                            case 'cuisine':
+                                groupKeys = [recipe.cuisine || 'Other'];
+                                break;
+                            case 'meal':
+                                groupKeys = [recipe.meal || 'Other'];
+                                break;
+                            case 'course':
+                                groupKeys = recipe.courses && recipe.courses.length > 0 
+                                    ? recipe.courses 
+                                    : ['Other'];
+                                break;
+                            case 'type':
+                                groupKeys = [recipe.type || 'Other'];
+                                break;
+                        }
+                        
+                        groupKeys.forEach(key => {
+                            if (!groups[key]) {
+                                groups[key] = [];
+                            }
+                            groups[key].push(recipe);
+                        });
+                    });
+                    
+                    // Convert to array and sort group names
+                    return Object.keys(groups)
+                        .sort((a, b) => a.localeCompare(b))
+                        .map(group => ({
+                            group: group,
+                            recipes: groups[group]
+                        }));
                 },
 
                 // === METHODS ===
@@ -416,6 +523,14 @@
                     // Load view mode preference
                     const savedViewMode = localStorage.getItem('cookbook-viewMode');
                     this.viewMode = savedViewMode || 'card';
+                    
+                    // Load grouping preference
+                    const savedGroupBy = localStorage.getItem('cookbook-groupBy');
+                    this.groupBy = savedGroupBy || 'none';
+                    
+                    // Load sorting preference
+                    const savedSortBy = localStorage.getItem('cookbook-sortBy');
+                    this.sortBy = savedSortBy || 'alphabetical';
                     
                     // Load recipes
                     await this.loadRecipes();
@@ -488,7 +603,8 @@
                         steps: '',
                         servingGuidelines: '',
                         notes: '',
-                        source: ''
+                        source: '',
+                        dateAdded: ''
                     };
 
                     let currentSection = '';
@@ -535,6 +651,9 @@
                     switch (section) {
                         case 'description':
                             recipe.description = contentText;
+                            break;
+                        case 'date added':
+                            recipe.dateAdded = contentText.replace(/^-\s*/, '').trim();
                             break;
                         case 'dietary information':
                             recipe.dietaryInfo = contentText.split('\n').map(d => d.replace(/^-\s*/, '').trim()).filter(d => d);
@@ -619,6 +738,24 @@
                     return match ? parseInt(match[1]) : 999;
                 },
 
+                sortRecipes(recipes) {
+                    const sorted = [...recipes];
+                    
+                    switch (this.sortBy) {
+                        case 'alphabetical':
+                            return sorted.sort((a, b) => a.title.localeCompare(b.title));
+                        case 'date-added':
+                            return sorted.sort((a, b) => {
+                                // Parse dates in YYYY.MM.DD format
+                                const dateA = a.dateAdded ? new Date(a.dateAdded.replace(/\./g, '-')) : new Date(0);
+                                const dateB = b.dateAdded ? new Date(b.dateAdded.replace(/\./g, '-')) : new Date(0);
+                                return dateB - dateA; // Most recent first
+                            });
+                        default:
+                            return sorted;
+                    }
+                },
+
                 openRecipeModal(recipe) {
                     this.selectedRecipe = recipe;
                     this.showRecipeModal = true;
@@ -633,6 +770,16 @@
                 toggleViewMode() {
                     this.viewMode = this.viewMode === 'card' ? 'list' : 'card';
                     localStorage.setItem('cookbook-viewMode', this.viewMode);
+                },
+
+                setGroupBy(value) {
+                    this.groupBy = value;
+                    localStorage.setItem('cookbook-groupBy', value);
+                },
+
+                setSortBy(value) {
+                    this.sortBy = value;
+                    localStorage.setItem('cookbook-sortBy', value);
                 },
 
                 updateDarkMode() {
