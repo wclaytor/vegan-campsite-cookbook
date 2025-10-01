@@ -313,7 +313,7 @@
                         <template x-if="selectedRecipe">
                             <div class="space-y-6">
                                 <!-- Recipe Info -->
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                                     <div x-show="selectedRecipe.cuisine" class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg">
                                         <div class="text-sm text-gray-500 dark:text-gray-400">Cuisine</div>
                                         <div class="font-semibold text-gray-800 dark:text-gray-200" x-text="selectedRecipe.cuisine"></div>
@@ -325,6 +325,10 @@
                                     <div x-show="selectedRecipe.servings" class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg">
                                         <div class="text-sm text-gray-500 dark:text-gray-400">Servings</div>
                                         <div class="font-semibold text-gray-800 dark:text-gray-200" x-text="selectedRecipe.servings"></div>
+                                    </div>
+                                    <div x-show="selectedRecipe.dateAdded" class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg">
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">Date Added</div>
+                                        <div class="font-semibold text-gray-800 dark:text-gray-200" x-text="selectedRecipe.dateAdded"></div>
                                     </div>
                                 </div>
 
