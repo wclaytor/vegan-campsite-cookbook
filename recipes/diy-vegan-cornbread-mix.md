@@ -4,6 +4,9 @@
 ## Description
 This homemade vegan cornbread mix eliminates the need for eggs, milk, or oil until cooking time. Just add water and you'll have sweet, tender cornbread that can be baked in a pan, made as muffins, cooked in a Dutch oven over the campfire, or even microwaved in a pinch. The mix is shelf-stable, lightweight, and produces consistently delicious results with minimal camp kitchen fuss.
 
+## Date Added
+2025.09.30
+
 ## Dietary Information
 - Vegan
 - Can be made Gluten-Free (use certified GF cornmeal and flour)

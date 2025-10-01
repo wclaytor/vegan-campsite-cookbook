@@ -3,6 +3,9 @@
 ## Description  
 Cold, nutty noodles tossed in a flavorful peanut–sesame dressing. Easy to make ahead and great as a quick meal or side dish.
 
+## Date Added
+2025.09.28
+
 ## Dietary Information
 - Vegan
 - Contains Peanuts
