@@ -9,9 +9,7 @@ This homemade vegan egg powder creates fluffy, protein-rich scrambles and omelet
 
 ## Dietary Information
 - Vegan
-- Gluten-Free (if using certified GF ingredients)
-- Contains no major allergens
-- High in plant protein
+- Gluten-Free*
 
 ## Cuisine
 - American / Breakfast
@@ -26,11 +24,10 @@ This homemade vegan egg powder creates fluffy, protein-rich scrambles and omelet
 - Breakfast Scramble / Omelet
 
 ## Preparation Time
-- 5 minutes to mix powder (make at home)
-- 2 minutes to hydrate, 5 minutes to cook at camp
+- 10 minutes
 
 ## Servings
-- Makes enough powder for 8-10 servings (about 16-20 "eggs" worth)
+- 8-10 servings
 
 ## Ingredients
 ### For the Egg Powder Mix (Make at Home):
@@ -80,6 +77,8 @@ This homemade vegan egg powder creates fluffy, protein-rich scrambles and omelet
 - **Storage:** Powder keeps 6+ months in airtight container at room temperature
 - **Scaling:** Use 1/3 cup powder + 1/3 cup water per 2-egg serving
 - **Black salt magic:** Kala namak gives authentic eggy sulfur flavor - find it at Indian grocery stores
+- **Gluten-Free:** If using certified GF ingredients
+- **Servings:** Makes enough powder for 8-10 servings (about 16-20 "eggs" worth)
 
 ## Camping Notes
 - **Equipment needed:** Mixing bowl, whisk or fork, non-stick pan or well-seasoned cast iron
