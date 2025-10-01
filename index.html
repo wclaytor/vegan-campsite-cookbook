@@ -57,6 +57,11 @@
                             <div class="text-sm text-gray-500 dark:text-gray-400">Total Recipes</div>
                             <div class="text-2xl font-bold text-green-600 dark:text-green-400" x-text="recipes.length"></div>
                         </div>
+                        <button @click="openIngredientsModal()" 
+                                class="p-2 rounded-lg bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800 transition-colors duration-300"
+                                title="View shopping list">
+                            <i class="bi bi-cart3"></i>
+                        </button>
                         <button @click="toggleViewMode()" 
                                 class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-300"
                                 :title="viewMode === 'card' ? 'Switch to list view' : 'Switch to card view'">
@@ -388,6 +393,63 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Ingredients Modal -->
+            <div x-show="showIngredientsModal" 
+                 @click="showIngredientsModal = false"
+                 class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+                 style="display: none;">
+                <div @click.stop 
+                     class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-4xl" 
+                     style="height: 80vh">
+                    
+                    <!-- Modal Header -->
+                    <div class="bg-white dark:bg-gray-800 p-6 border-b border-gray-200 dark:border-gray-600 rounded-t-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                                    <i class="bi bi-cart3 mr-2"></i>Shopping List
+                                </h2>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                    Ingredients for <span x-text="filteredRecipes.length"></span> filtered recipe(s)
+                                </p>
+                            </div>
+                            <button @click="showIngredientsModal = false" 
+                                    class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-2xl">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Modal Content -->
+                    <div class="bg-gray-50 dark:bg-gray-900 p-6 overflow-y-scroll" 
+                         style="height: calc(80vh - 120px)">
+                        <div x-show="consolidatedIngredients.length === 0" 
+                             class="text-center py-12 text-gray-500 dark:text-gray-400">
+                            <i class="bi bi-cart-x text-4xl mb-4"></i>
+                            <p>No ingredients found for the current filter.</p>
+                        </div>
+                        
+                        <div x-show="consolidatedIngredients.length > 0" class="space-y-6">
+                            <template x-for="item in consolidatedIngredients" :key="item.title">
+                                <div class="bg-white dark:bg-gray-800 rounded-lg p-6">
+                                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
+                                        <i class="bi bi-book mr-2"></i><span x-text="item.title"></span>
+                                    </h3>
+                                    <ul class="space-y-2">
+                                        <template x-for="ingredient in item.ingredients" :key="ingredient">
+                                            <li class="flex items-start text-gray-600 dark:text-gray-400">
+                                                <i class="bi bi-check2-circle text-green-500 mr-2 mt-1 flex-shrink-0"></i>
+                                                <span x-text="ingredient"></span>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -403,6 +465,7 @@
                 viewMode: 'card', // 'card' or 'list'
                 showRecipeModal: false,
                 selectedRecipe: null,
+                showIngredientsModal: false,
                 groupBy: 'none', // 'none', 'cuisine', 'meal', 'course', 'type'
                 sortBy: 'alphabetical', // 'alphabetical', 'date-added'
 
@@ -515,6 +578,13 @@
                             group: group,
                             recipes: groups[group]
                         }));
+                },
+
+                get consolidatedIngredients() {
+                    return this.filteredRecipes.map(recipe => ({
+                        title: recipe.title,
+                        ingredients: this.extractIngredientsFromHtml(recipe.ingredients || '')
+                    })).filter(item => item.ingredients.length > 0);
                 },
 
                 // === METHODS ===
@@ -763,6 +833,19 @@
                 openRecipeModal(recipe) {
                     this.selectedRecipe = recipe;
                     this.showRecipeModal = true;
+                },
+
+                openIngredientsModal() {
+                    this.showIngredientsModal = true;
+                },
+
+                extractIngredientsFromHtml(html) {
+                    if (!html) return [];
+                    // Parse HTML to extract text content from list items
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const items = doc.querySelectorAll('li');
+                    return Array.from(items).map(item => item.textContent.trim()).filter(text => text);
                 },
 
                 toggleDarkMode() {
