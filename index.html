@@ -403,7 +403,7 @@
                 viewMode: 'card', // 'card' or 'list'
                 showRecipeModal: false,
                 selectedRecipe: null,
-                groupBy: 'none', // 'none', 'cuisine', 'meal', 'course', 'type'
+                groupBy: 'cuisine', // 'none', 'cuisine', 'meal', 'course', 'type'
                 sortBy: 'alphabetical', // 'alphabetical', 'date-added'
 
                 // === COMPUTED PROPERTIES ===
@@ -530,7 +530,7 @@
                     
                     // Load grouping preference
                     const savedGroupBy = localStorage.getItem('cookbook-groupBy');
-                    this.groupBy = savedGroupBy || 'none';
+                    this.groupBy = savedGroupBy || 'cuisine';
                     
                     // Load sorting preference
                     const savedSortBy = localStorage.getItem('cookbook-sortBy');
