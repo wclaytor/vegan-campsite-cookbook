@@ -244,7 +244,7 @@
                                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
                                         <i class="bi bi-list-ul mr-2"></i>Ingredients
                                     </h3>
-                                    <div x-html="selectedRecipe.ingredients" class="prose dark:prose-invert max-w-none"></div>
+                                    <div x-html="selectedRecipe.ingredients" class="text-gray-600 dark:text-gray-400 max-w-none"></div>
                                 </div>
 
                                 <!-- Steps -->
@@ -252,25 +252,25 @@
                                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
                                         <i class="bi bi-list-ol mr-2"></i>Instructions
                                     </h3>
-                                    <div x-html="selectedRecipe.steps" class="prose dark:prose-invert max-w-none"></div>
+                                    <div x-html="selectedRecipe.steps" class="text-gray-600 dark:text-gray-400 max-w-none"></div>
                                 </div>
 
                                 <!-- Additional Info -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div x-show="selectedRecipe.servingGuidelines" class="bg-white dark:bg-gray-800 rounded-lg p-6">
                                         <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Serving Guidelines</h3>
-                                        <div x-html="selectedRecipe.servingGuidelines" class="prose dark:prose-invert max-w-none"></div>
+                                        <div x-html="selectedRecipe.servingGuidelines" class="text-gray-600 dark:text-gray-400 max-w-none"></div>
                                     </div>
                                     <div x-show="selectedRecipe.notes" class="bg-white dark:bg-gray-800 rounded-lg p-6">
                                         <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Notes</h3>
-                                        <div x-html="selectedRecipe.notes" class="prose dark:prose-invert max-w-none"></div>
+                                        <div x-html="selectedRecipe.notes" class="text-gray-600 dark:text-gray-400 max-w-none"></div>
                                     </div>
                                 </div>
 
                                 <!-- Source -->
                                 <div x-show="selectedRecipe.source" class="bg-white dark:bg-gray-800 rounded-lg p-6">
                                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Source</h3>
-                                    <div x-html="selectedRecipe.source" class="prose dark:prose-invert max-w-none"></div>
+                                    <div x-html="selectedRecipe.source" class="text-gray-600 dark:text-gray-400 max-w-none"></div>
                                 </div>
                             </div>
                         </template>
@@ -525,8 +525,8 @@
                         .replace(/^- (.*$)/gm, '<li class="mb-1">$1</li>')
                         .replace(/^(\d+)\. (.*$)/gm, '<li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">$1.</span> $2</li>')
                         .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-200" target="_blank" rel="noopener">$1</a>')
-                        .replace(/(?:^- .*$\n?)+/gm, (match) => `<ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">${match}</ul>`)
-                        .replace(/(?:^\d+\. .*$\n?)+/gm, (match) => `<ol class="space-y-2 text-gray-700 dark:text-gray-300">${match}</ol>`);
+                        .replace(/(?:^- .*$\n?)+/gm, (match) => `<ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-200">${match}</ul>`)
+                        .replace(/(?:^\d+\. .*$\n?)+/gm, (match) => `<ol class="space-y-2 text-gray-700 dark:text-gray-200">${match}</ol>`);
                 },
 
                 addSampleRecipes() {
@@ -540,8 +540,8 @@
                             courses: ['Appetizer', 'Side'],
                             preparationTime: '15 minutes',
                             servings: '4 servings',
-                            ingredients: '<ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300"><li class="mb-1">1 can chickpeas</li><li class="mb-1">2 cloves garlic</li><li class="mb-1">2 tbsp tahini</li><li class="mb-1">Lemon juice</li></ul>',
-                            steps: '<ol class="space-y-2 text-gray-700 dark:text-gray-300"><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">1.</span> Drain chickpeas</li><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">2.</span> Blend all ingredients</li><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">3.</span> Serve with pita</li></ol>'
+                            ingredients: '<ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-200"><li class="mb-1">1 can chickpeas</li><li class="mb-1">2 cloves garlic</li><li class="mb-1">2 tbsp tahini</li><li class="mb-1">Lemon juice</li></ul>',
+                            steps: '<ol class="space-y-2 text-gray-700 dark:text-gray-200"><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">1.</span> Drain chickpeas</li><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">2.</span> Blend all ingredients</li><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">3.</span> Serve with pita</li></ol>'
                         },
                         {
                             id: 'sample-chili',
@@ -552,8 +552,8 @@
                             courses: ['Main'],
                             preparationTime: '45 minutes',
                             servings: '6 servings',
-                            ingredients: '<ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300"><li class="mb-1">2 cans black beans</li><li class="mb-1">1 can diced tomatoes</li><li class="mb-1">Chili spices</li><li class="mb-1">Vegetables</li></ul>',
-                            steps: '<ol class="space-y-2 text-gray-700 dark:text-gray-300"><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">1.</span> Sauté vegetables</li><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">2.</span> Add beans and tomatoes</li><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">3.</span> Simmer 30 minutes</li></ol>'
+                            ingredients: '<ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-200"><li class="mb-1">2 cans black beans</li><li class="mb-1">1 can diced tomatoes</li><li class="mb-1">Chili spices</li><li class="mb-1">Vegetables</li></ul>',
+                            steps: '<ol class="space-y-2 text-gray-700 dark:text-gray-200"><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">1.</span> Sauté vegetables</li><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">2.</span> Add beans and tomatoes</li><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">3.</span> Simmer 30 minutes</li></ol>'
                         }
                     ];
                 },
