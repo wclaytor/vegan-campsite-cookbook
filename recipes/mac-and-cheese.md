@@ -4,6 +4,9 @@ Comforting and dairy-free
 ## Description
 A creamy, rich, and satisfying vegan mac and cheese made with a cashew-based sauce, nutritional yeast, and warm spices. Perfect for weeknight comfort food or as a holiday side.
 
+## Date Added
+2025.09.28
+
 ## Dietary Information
 - Vegan
 - Contains Nuts (Cashews)

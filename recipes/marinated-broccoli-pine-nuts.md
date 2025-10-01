@@ -4,6 +4,9 @@
 ## Description
 This refreshing marinated broccoli salad combines crisp raw broccoli florets with a zesty tamari-ginger-garlic dressing and crunchy toasted pine nuts. The broccoli marinates to absorb all the savory-umami flavors, creating a perfect side dish that's both healthy and satisfying. Great for potlucks, camping meals, or as a light summer side.
 
+## Date Added
+2025.09.29
+
 ## Dietary Information
 - Vegan
 - Gluten-Free (if using gluten-free tamari)

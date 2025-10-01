@@ -4,6 +4,9 @@
 ## Description
 This classic Mexican rajas recipe features roasted poblano chiles cut into silky strips and sautéed with onions and fresh tomatoes. The poblanos are charred over the campfire for authentic smoky flavor, then combined with sweet onions and juicy tomatoes for the perfect balance of heat, sweetness, and acidity. This versatile filling is perfect for quesadillas, tacos, burritos, or served as a side dish.
 
+## Date Added
+2025.09.30
+
 ## Dietary Information
 - Vegan
 - Gluten-Free

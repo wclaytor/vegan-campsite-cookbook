@@ -4,6 +4,9 @@
 ## Description
 This bright yellow curried "chicken" salad captures all the classic flavors of traditional chicken salad but with plant-based protein and aromatic curry spices. The combination of curry powder, turmeric, and mustard seeds creates a beautiful golden color and complex flavor, while shredded carrots add crunch and raisins provide bursts of sweetness. Lightly dressed with homemade vegan mayo, this salad is perfect for sandwiches, wraps, or served over greens.
 
+## Date Added
+2025.09.29
+
 ## Dietary Information
 - Vegan
 - Contains Soy (if using TVP or tofu)

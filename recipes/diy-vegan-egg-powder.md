@@ -4,6 +4,9 @@
 ## Description
 This homemade vegan egg powder creates fluffy, protein-rich scrambles and omelets that rival store-bought liquid egg substitutes. Made with wholesome ingredients like chickpea flour, nutritional yeast, and turmeric, this powder is lightweight, shelf-stable, and perfect for camping. Just add water and cook! The result is surprisingly egg-like in texture, flavor, and appearance.
 
+## Date Added
+2025.09.30
+
 ## Dietary Information
 - Vegan
 - Gluten-Free (if using certified GF ingredients)

@@ -4,6 +4,9 @@ Optional subheader
 ## Description
 Optional description
 
+## Date Added
+2025.01.01
+
 ## Dietary Information
 - Vegan / Vegetarian / Contains Peanuts / Contains Soy / Etc...
 
