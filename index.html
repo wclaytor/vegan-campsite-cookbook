@@ -57,6 +57,12 @@
                             <div class="text-sm text-gray-500 dark:text-gray-400">Total Recipes</div>
                             <div class="text-2xl font-bold text-green-600 dark:text-green-400" x-text="recipes.length"></div>
                         </div>
+                        <button @click="toggleViewMode()" 
+                                class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-300"
+                                :title="viewMode === 'card' ? 'Switch to list view' : 'Switch to card view'">
+                            <i x-show="viewMode === 'card'" class="bi bi-list-ul"></i>
+                            <i x-show="viewMode === 'list'" class="bi bi-grid-3x3-gap"></i>
+                        </button>
                         <button @click="toggleDarkMode()" 
                                 class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-300">
                             <i x-show="!darkMode" class="bi bi-moon-stars"></i>
@@ -130,8 +136,8 @@
                 <p class="mt-2 text-gray-600 dark:text-gray-400">Loading recipes...</p>
             </div>
 
-            <!-- Recipe Grid -->
-            <div x-show="!loading && recipes.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Recipe Grid (Card View) -->
+            <div x-show="!loading && recipes.length > 0 && viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <template x-for="recipe in filteredRecipes" :key="recipe.id">
                     <div class="recipe-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer transition-colors duration-300"
                          @click="openRecipeModal(recipe)">
@@ -168,6 +174,51 @@
                                     </template>
                                 </div>
                                 <i class="bi bi-arrow-right-circle text-green-500 text-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Recipe List (List View) -->
+            <div x-show="!loading && recipes.length > 0 && viewMode === 'list'" class="space-y-3">
+                <template x-for="recipe in filteredRecipes" :key="recipe.id">
+                    <div class="recipe-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer transition-colors duration-300"
+                         @click="openRecipeModal(recipe)">
+                        <div class="p-4 md:p-6">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                                <!-- Title and Description -->
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-100 mb-1" x-text="recipe.title"></h3>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-1" x-text="recipe.description"></p>
+                                </div>
+                                
+                                <!-- Metadata -->
+                                <div class="flex flex-wrap items-center gap-2 md:gap-3">
+                                    <span x-show="recipe.cuisine" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 whitespace-nowrap">
+                                        <i class="bi bi-globe mr-1"></i>
+                                        <span x-text="recipe.cuisine"></span>
+                                    </span>
+                                    <span x-show="recipe.preparationTime" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 whitespace-nowrap">
+                                        <i class="bi bi-clock mr-1"></i>
+                                        <span x-text="recipe.preparationTime"></span>
+                                    </span>
+                                    <span x-show="recipe.servings" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 whitespace-nowrap">
+                                        <i class="bi bi-people mr-1"></i>
+                                        <span x-text="recipe.servings"></span>
+                                    </span>
+                                    <i class="bi bi-arrow-right-circle text-green-500 text-lg ml-2"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- Tags Row -->
+                            <div class="flex flex-wrap gap-2 mt-3">
+                                <template x-for="course in recipe.courses" :key="course">
+                                    <span class="text-xs px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full" x-text="course"></span>
+                                </template>
+                                <template x-for="dietary in recipe.dietaryInfo" :key="dietary">
+                                    <span class="text-xs px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full border border-yellow-200 dark:border-yellow-700" x-text="dietary"></span>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -289,6 +340,7 @@
                 activeFilter: 'all',
                 loading: true,
                 darkMode: false,
+                viewMode: 'card', // 'card' or 'list'
                 showRecipeModal: false,
                 selectedRecipe: null,
 
@@ -360,6 +412,10 @@
                     const savedDarkMode = localStorage.getItem('cookbook-darkMode');
                     this.darkMode = savedDarkMode === 'true';
                     this.updateDarkMode();
+                    
+                    // Load view mode preference
+                    const savedViewMode = localStorage.getItem('cookbook-viewMode');
+                    this.viewMode = savedViewMode || 'card';
                     
                     // Load recipes
                     await this.loadRecipes();
@@ -572,6 +628,11 @@
                     this.darkMode = !this.darkMode;
                     this.updateDarkMode();
                     localStorage.setItem('cookbook-darkMode', this.darkMode.toString());
+                },
+
+                toggleViewMode() {
+                    this.viewMode = this.viewMode === 'card' ? 'list' : 'card';
+                    localStorage.setItem('cookbook-viewMode', this.viewMode);
                 },
 
                 updateDarkMode() {
