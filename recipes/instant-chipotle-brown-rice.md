@@ -24,11 +24,10 @@ A camping-friendly version of Chipotle's famous cilantro lime brown rice, made w
 - Rice / Grain Side Dish
 
 ## Preparation Time
-- 17 minutes total (10 minutes pressurization + 5 minutes cooking + 2 minutes release)
-- Plus 10 minutes resting time
+- 20 minutes
 
 ## Servings
-- 4-6 servings (makes about 6 cups cooked rice)
+- 4-6 servings
 
 ## Ingredients
 
