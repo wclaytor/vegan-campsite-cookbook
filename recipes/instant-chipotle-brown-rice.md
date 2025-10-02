@@ -4,12 +4,12 @@ Instant Pot Camping Version
 ## Description
 A camping-friendly version of Chipotle's famous cilantro lime brown rice, made with Minute Rice instant brown rice in a 4qt Instant Pot. This recipe eliminates the need for rinsing (saving precious camping water) while delivering restaurant-quality results in under 20 minutes. The secret is the 50/50 lemon-lime blend and proper resting technique for fluffy, separated grains.
 
+## Date Added
+2025.10.02
+
 ## Dietary Information
-- Vegan
-- Vegetarian  
+- Vegan 
 - Gluten-Free
-- Dairy-Free
-- Low-Fat
 
 ## Cuisine
 - Mexican / Tex-Mex
