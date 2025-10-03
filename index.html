@@ -138,6 +138,41 @@
                             <i class="bi bi-x-circle mr-1"></i>Soy-Free
                         </button>
                     </div>
+                    
+                    <!-- Cuisine Filter Options -->
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Cuisine:</div>
+                        <button @click="cuisineFilter = 'all'"
+                                :class="cuisineFilter === 'all' ? 'bg-purple-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            All
+                        </button>
+                        <button @click="cuisineFilter = 'american'"
+                                :class="cuisineFilter === 'american' ? 'bg-purple-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-flag mr-1"></i>American
+                        </button>
+                        <button @click="cuisineFilter = 'asian'"
+                                :class="cuisineFilter === 'asian' ? 'bg-purple-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-globe-asia-australia mr-1"></i>Asian
+                        </button>
+                        <button @click="cuisineFilter = 'mexican'"
+                                :class="cuisineFilter === 'mexican' ? 'bg-purple-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-emoji-smile mr-1"></i>Mexican
+                        </button>
+                        <button @click="cuisineFilter = 'middle-eastern'"
+                                :class="cuisineFilter === 'middle-eastern' ? 'bg-purple-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-geo-alt mr-1"></i>Middle Eastern
+                        </button>
+                        <button @click="cuisineFilter = 'indian'"
+                                :class="cuisineFilter === 'indian' ? 'bg-purple-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-stars mr-1"></i>Indian
+                        </button>
+                    </div>
 
                     <!-- Sorting and Grouping Options -->
                     <div class="flex flex-wrap gap-4 mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
@@ -410,6 +445,7 @@
                 searchTerm: '',
                 mealFilter: 'all', // 'all', 'breakfast', 'lunch', 'dinner', 'snack'
                 dietaryFilter: 'all', // 'all', 'gluten-free', 'nut-free', 'soy-free'
+                cuisineFilter: 'all', // 'all', 'american', 'asian', 'mexican', 'middle-eastern', 'indian'
                 loading: true,
                 darkMode: false,
                 viewMode: 'card', // 'card' or 'list'
@@ -476,6 +512,28 @@
                                     return recipe.dietaryInfo && !recipe.dietaryInfo.some(info => 
                                         info.toLowerCase().includes('soy')
                                     );
+                                default:
+                                    return true;
+                            }
+                        });
+                    }
+                    
+                    // Apply cuisine filter
+                    if (this.cuisineFilter !== 'all') {
+                        filtered = filtered.filter(recipe => {
+                            if (!recipe.cuisine) return false;
+                            const cuisineLower = recipe.cuisine.toLowerCase();
+                            switch (this.cuisineFilter) {
+                                case 'american':
+                                    return cuisineLower.includes('american');
+                                case 'asian':
+                                    return cuisineLower.includes('asian');
+                                case 'mexican':
+                                    return cuisineLower.includes('mexican') || cuisineLower.includes('tex-mex');
+                                case 'middle-eastern':
+                                    return cuisineLower.includes('middle eastern');
+                                case 'indian':
+                                    return cuisineLower.includes('indian');
                                 default:
                                     return true;
                             }
