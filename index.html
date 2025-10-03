@@ -87,28 +87,28 @@
                     <!-- Meal Filter Options -->
                     <div class="flex flex-wrap gap-2">
                         <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Meal:</div>
-                        <button @click="activeFilter = 'all'"
-                                :class="activeFilter === 'all' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                        <button @click="mealFilter = 'all'"
+                                :class="mealFilter === 'all' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             All
                         </button>
-                        <button @click="activeFilter = 'breakfast'"
-                                :class="activeFilter === 'breakfast' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                        <button @click="mealFilter = 'breakfast'"
+                                :class="mealFilter === 'breakfast' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-sunrise mr-1"></i>Breakfast
                         </button>
-                        <button @click="activeFilter = 'lunch'"
-                                :class="activeFilter === 'lunch' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                        <button @click="mealFilter = 'lunch'"
+                                :class="mealFilter === 'lunch' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-sun mr-1"></i>Lunch
                         </button>
-                        <button @click="activeFilter = 'dinner'"
-                                :class="activeFilter === 'dinner' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                        <button @click="mealFilter = 'dinner'"
+                                :class="mealFilter === 'dinner' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-moon-stars mr-1"></i>Dinner
                         </button>
-                        <button @click="activeFilter = 'snack'"
-                                :class="activeFilter === 'snack' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                        <button @click="mealFilter = 'snack'"
+                                :class="mealFilter === 'snack' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-cup-straw mr-1"></i>Snack
                         </button>
@@ -117,23 +117,23 @@
                     <!-- Dietary Filter Options -->
                     <div class="flex flex-wrap gap-2 mt-3">
                         <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Dietary:</div>
-                        <button @click="activeFilter = 'all'"
-                                :class="activeFilter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                        <button @click="dietaryFilter = 'all'"
+                                :class="dietaryFilter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             All
                         </button>
-                        <button @click="activeFilter = 'gluten-free'"
-                                :class="activeFilter === 'gluten-free' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                        <button @click="dietaryFilter = 'gluten-free'"
+                                :class="dietaryFilter === 'gluten-free' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-shield-check mr-1"></i>Gluten-Free
                         </button>
-                        <button @click="activeFilter = 'nut-free'"
-                                :class="activeFilter === 'nut-free' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                        <button @click="dietaryFilter = 'nut-free'"
+                                :class="dietaryFilter === 'nut-free' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-x-circle mr-1"></i>Nut-Free
                         </button>
-                        <button @click="activeFilter = 'soy-free'"
-                                :class="activeFilter === 'soy-free' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                        <button @click="dietaryFilter = 'soy-free'"
+                                :class="dietaryFilter === 'soy-free' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-x-circle mr-1"></i>Soy-Free
                         </button>
@@ -408,7 +408,8 @@
                 // === STATE ===
                 recipes: [],
                 searchTerm: '',
-                activeFilter: 'all',
+                mealFilter: 'all', // 'all', 'breakfast', 'lunch', 'dinner', 'snack'
+                dietaryFilter: 'all', // 'all', 'gluten-free', 'nut-free', 'soy-free'
                 loading: true,
                 darkMode: false,
                 viewMode: 'card', // 'card' or 'list'
@@ -435,10 +436,10 @@
                         );
                     }
                     
-                    // Apply category filter
-                    if (this.activeFilter !== 'all') {
+                    // Apply meal filter
+                    if (this.mealFilter !== 'all') {
                         filtered = filtered.filter(recipe => {
-                            switch (this.activeFilter) {
+                            switch (this.mealFilter) {
                                 case 'breakfast':
                                     return recipe.meal && recipe.meal.toLowerCase().includes('breakfast');
                                 case 'lunch':
@@ -447,6 +448,16 @@
                                     return recipe.meal && recipe.meal.toLowerCase().includes('dinner');
                                 case 'snack':
                                     return recipe.meal && recipe.meal.toLowerCase().includes('snack');
+                                default:
+                                    return true;
+                            }
+                        });
+                    }
+                    
+                    // Apply dietary filter
+                    if (this.dietaryFilter !== 'all') {
+                        filtered = filtered.filter(recipe => {
+                            switch (this.dietaryFilter) {
                                 case 'gluten-free':
                                     return recipe.dietaryInfo && recipe.dietaryInfo.some(info => 
                                         info.toLowerCase().includes('gluten-free')
