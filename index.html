@@ -101,11 +101,6 @@
                                 class="px-4 py-2 rounded-lg font-medium transition-colors duration-300">
                             <i class="bi bi-bowl-hot mr-1"></i>Main Dishes
                         </button>
-                        <button @click="activeFilter = 'quick'"
-                                :class="activeFilter === 'quick' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'" 
-                                class="px-4 py-2 rounded-lg font-medium transition-colors duration-300">
-                            <i class="bi bi-clock mr-1"></i>Quick (< 30min)
-                        </button>
                     </div>
                     
                     <!-- Dietary Filter Options -->
@@ -438,9 +433,6 @@
                                         course.toLowerCase().includes('main') || 
                                         course.toLowerCase().includes('entree')
                                     );
-                                case 'quick':
-                                    return recipe.preparationTime && 
-                                           this.extractMinutes(recipe.preparationTime) <= 30;
                                 case 'gluten-free':
                                     return recipe.dietaryInfo && recipe.dietaryInfo.some(info => 
                                         info.toLowerCase().includes('gluten-free')
@@ -735,11 +727,6 @@
                             steps: '<ol class="space-y-2 text-gray-700 dark:text-gray-200"><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">1.</span> Sauté vegetables</li><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">2.</span> Add beans and tomatoes</li><li class="mb-2"><span class="font-medium text-green-600 dark:text-green-400">3.</span> Simmer 30 minutes</li></ol>'
                         }
                     ];
-                },
-
-                extractMinutes(timeString) {
-                    const match = timeString.match(/(\d+)\s*min/i);
-                    return match ? parseInt(match[1]) : 999;
                 },
 
                 sortRecipes(recipes) {

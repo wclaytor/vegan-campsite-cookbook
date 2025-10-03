@@ -8,7 +8,7 @@ A modern, single-file Alpine.js application for browsing plant-based recipes per
 
 - **Recipe Index**: Automatically loads and displays recipes from `/recipes/*.md` files
 - **Smart Search**: Search across recipe names, descriptions, ingredients, and cuisines
-- **Quick Filters**: Filter by meal type (Appetizers, Main Dishes, Quick recipes)
+- **Recipe Filters**: Filter by meal type (Appetizers, Main Dishes) and dietary preferences
 - **Responsive Design**: Mobile-friendly interface perfect for camping
 - **Dark Mode**: Toggle between light and dark themes
 - **Offline Ready**: Works offline after initial load
