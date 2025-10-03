@@ -117,6 +117,11 @@
                     <!-- Dietary Filter Options -->
                     <div class="flex flex-wrap gap-2 mt-3">
                         <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Dietary:</div>
+                        <button @click="activeFilter = 'all'"
+                                :class="activeFilter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            All
+                        </button>
                         <button @click="activeFilter = 'gluten-free'"
                                 :class="activeFilter === 'gluten-free' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
