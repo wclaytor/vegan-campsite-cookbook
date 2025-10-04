@@ -114,6 +114,36 @@
                         </button>
                     </div>
                     
+                    <!-- Course Filter Options -->
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Course:</div>
+                        <button @click="courseFilter = 'all'"
+                                :class="courseFilter === 'all' ? 'bg-orange-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            All
+                        </button>
+                        <button @click="courseFilter = 'appetizer'"
+                                :class="courseFilter === 'appetizer' ? 'bg-orange-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-egg-fried mr-1"></i>Appetizer
+                        </button>
+                        <button @click="courseFilter = 'main'"
+                                :class="courseFilter === 'main' ? 'bg-orange-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-bowl-hot-fill mr-1"></i>Main
+                        </button>
+                        <button @click="courseFilter = 'side'"
+                                :class="courseFilter === 'side' ? 'bg-orange-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-egg mr-1"></i>Side
+                        </button>
+                        <button @click="courseFilter = 'dessert'"
+                                :class="courseFilter === 'dessert' ? 'bg-orange-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-cake2 mr-1"></i>Dessert
+                        </button>
+                    </div>
+                    
                     <!-- Dietary Filter Options -->
                     <div class="flex flex-wrap gap-2 mt-3">
                         <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Dietary:</div>
@@ -444,6 +474,7 @@
                 recipes: [],
                 searchTerm: '',
                 mealFilter: 'all', // 'all', 'breakfast', 'lunch', 'dinner', 'snack'
+                courseFilter: 'all', // 'all', 'appetizer', 'main', 'side', 'dessert'
                 dietaryFilter: 'all', // 'all', 'gluten-free', 'nut-free', 'soy-free'
                 cuisineFilter: 'all', // 'all', 'american', 'asian', 'mexican', 'middle-eastern', 'indian'
                 loading: true,
@@ -487,6 +518,28 @@
                                 default:
                                     return true;
                             }
+                        });
+                    }
+                    
+                    // Apply course filter
+                    if (this.courseFilter !== 'all') {
+                        filtered = filtered.filter(recipe => {
+                            if (!recipe.courses || recipe.courses.length === 0) return false;
+                            return recipe.courses.some(course => {
+                                const courseLower = course.toLowerCase();
+                                switch (this.courseFilter) {
+                                    case 'appetizer':
+                                        return courseLower.includes('appetizer');
+                                    case 'main':
+                                        return courseLower.includes('main');
+                                    case 'side':
+                                        return courseLower.includes('side');
+                                    case 'dessert':
+                                        return courseLower.includes('dessert');
+                                    default:
+                                        return true;
+                                }
+                            });
                         });
                     }
                     
