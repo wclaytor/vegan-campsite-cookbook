@@ -1,4 +1,4 @@
-# Chipotle Sofritas
+# Chipotle Tofu
 The perfect protein for a burrito or bowl
 
 ## Description
@@ -6,10 +6,7 @@ A lime-infused hearty plant-based protein that recreates the famous Chipotle Sof
 
 ## Dietary Information
 - Vegan
-- Vegetarian
-- Gluten-Free (check vegetable broth label)
-- Low-Carb
-- High-Protein
+- Gluten-Free*
 
 ## Cuisine
 - Mexican / Tex-Mex
@@ -82,6 +79,7 @@ Serve the Sofritas hot with your choice of:
 - Store leftovers in an airtight container in the refrigerator for up to 4 days
 - Freeze in an airtight container for up to 2 months (texture may become slightly chewier)
 - Always thaw frozen Sofritas in the refrigerator (not at room temperature) for food safety
+- Gluten-Free (check vegetable broth label)
 
 ### Tips:
 - For extra-firm texture, you can freeze the tofu overnight, then thaw and press before use
