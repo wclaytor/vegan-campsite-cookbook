@@ -144,6 +144,56 @@
                         </button>
                     </div>
                     
+                    <!-- Type Filter Options -->
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Type:</div>
+                        <button @click="typeFilter = 'all'"
+                                :class="typeFilter === 'all' ? 'bg-pink-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            All
+                        </button>
+                        <button @click="typeFilter = 'dip'"
+                                :class="typeFilter === 'dip' ? 'bg-pink-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-droplet mr-1"></i>Dip
+                        </button>
+                        <button @click="typeFilter = 'casserole'"
+                                :class="typeFilter === 'casserole' ? 'bg-pink-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-dish mr-1"></i>Casserole
+                        </button>
+                        <button @click="typeFilter = 'salad'"
+                                :class="typeFilter === 'salad' ? 'bg-pink-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-flower2 mr-1"></i>Salad
+                        </button>
+                        <button @click="typeFilter = 'bread'"
+                                :class="typeFilter === 'bread' ? 'bg-pink-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-basket mr-1"></i>Bread
+                        </button>
+                        <button @click="typeFilter = 'protein'"
+                                :class="typeFilter === 'protein' ? 'bg-pink-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-lightning mr-1"></i>Protein
+                        </button>
+                        <button @click="typeFilter = 'grain'"
+                                :class="typeFilter === 'grain' ? 'bg-pink-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-box mr-1"></i>Grain
+                        </button>
+                        <button @click="typeFilter = 'noodles'"
+                                :class="typeFilter === 'noodles' ? 'bg-pink-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-bezier mr-1"></i>Noodles
+                        </button>
+                        <button @click="typeFilter = 'chili'"
+                                :class="typeFilter === 'chili' ? 'bg-pink-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-fire mr-1"></i>Chili
+                        </button>
+                    </div>
+                    
                     <!-- Dietary Filter Options -->
                     <div class="flex flex-wrap gap-2 mt-3">
                         <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Dietary:</div>
@@ -475,6 +525,7 @@
                 searchTerm: '',
                 mealFilter: 'all', // 'all', 'breakfast', 'lunch', 'dinner', 'snack'
                 courseFilter: 'all', // 'all', 'appetizer', 'main', 'side', 'dessert'
+                typeFilter: 'all', // 'all', 'dip', 'casserole', 'salad', 'bread', 'protein', 'grain', 'noodles', 'chili'
                 dietaryFilter: 'all', // 'all', 'gluten-free', 'nut-free', 'soy-free'
                 cuisineFilter: 'all', // 'all', 'american', 'asian', 'mexican', 'middle-eastern', 'indian'
                 loading: true,
@@ -540,6 +591,34 @@
                                         return true;
                                 }
                             });
+                        });
+                    }
+                    
+                    // Apply type filter
+                    if (this.typeFilter !== 'all') {
+                        filtered = filtered.filter(recipe => {
+                            if (!recipe.type) return false;
+                            const typeLower = recipe.type.toLowerCase();
+                            switch (this.typeFilter) {
+                                case 'dip':
+                                    return typeLower.includes('dip');
+                                case 'casserole':
+                                    return typeLower.includes('casserole') || typeLower.includes('pasta');
+                                case 'salad':
+                                    return typeLower.includes('salad');
+                                case 'bread':
+                                    return typeLower.includes('bread') || typeLower.includes('muffin');
+                                case 'protein':
+                                    return typeLower.includes('protein') || typeLower.includes('scramble') || typeLower.includes('omelet');
+                                case 'grain':
+                                    return typeLower.includes('grain') || typeLower.includes('rice');
+                                case 'noodles':
+                                    return typeLower.includes('noodles');
+                                case 'chili':
+                                    return typeLower.includes('chili') || typeLower.includes('stew');
+                                default:
+                                    return true;
+                            }
                         });
                     }
                     
