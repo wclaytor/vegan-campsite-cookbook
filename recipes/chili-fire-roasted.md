@@ -11,7 +11,7 @@ A hearty and flavorful black bean chili featuring fire roasted tomatoes and conv
 - Gluten-Free
 
 ## Cuisine
-- American
+- Tex-Mex
 
 ## Meal
 - Lunch / Dinner
