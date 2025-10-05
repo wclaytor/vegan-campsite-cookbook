@@ -9,9 +9,9 @@ This refreshing marinated broccoli salad combines crisp raw broccoli florets wit
 
 ## Dietary Information
 - Vegan
-- Gluten-Free (if using gluten-free tamari)
+- Gluten-Free*
 - Contains Tree Nuts (pine nuts)
-- Soy (tamari)
+- Contains Soy (tamari)
 
 ## Cuisine
 - Asian-Inspired
@@ -68,6 +68,7 @@ This refreshing marinated broccoli salad combines crisp raw broccoli florets wit
 - For camping: Prepare the marinated broccoli at home and pack in a cooler. Toast pine nuts over the campfire in a cast iron skillet
 - If pine nuts aren't available, try toasted sliced almonds, sunflower seeds, or sesame seeds
 - The dressing can be made up to 3 days in advance and stored separately
+- Gluten-Free (if using gluten-free tamari)
 
 ## Camping Notes
 - **Equipment needed:** Large mixing bowl, small skillet for toasting nuts
