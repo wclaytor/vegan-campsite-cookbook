@@ -32,7 +32,7 @@ This homemade vegan cornbread mix eliminates the need for eggs, milk, or oil unt
 
 ## Ingredients
 ### Required:
-- 1 batch [DIY Vegan Cornbread Mix](diy-vegan-cornbread-mix.md)
+- 1 batch DIY Vegan Cornbread Mix (see below)
 - 1 cup water
 - 1/4 cup neutral oil (sunflower, avocado, or melted coconut oil)
 - 2 tablespoons apple cider vinegar or lemon juice
@@ -44,7 +44,7 @@ This homemade vegan cornbread mix eliminates the need for eggs, milk, or oil unt
 
 ## Steps
 ### Prepare the Mix:
-1. **Make the mix at home:** Follow the instructions in [DIY Vegan Cornbread Mix](diy-vegan-cornbread-mix.md) to prepare your cornbread mix ahead of time.
+1. **Make the mix at home:** Follow the instructions in DIY Vegan Cornbread Mix (see below) to prepare your cornbread mix ahead of time.
 
 ### At Camp - Make the Cornbread:
 
@@ -118,3 +118,23 @@ This homemade vegan cornbread mix eliminates the need for eggs, milk, or oil unt
 
 ## Source / Inspiration
 Classic American cornbread adapted for camping convenience with vegan substitutions and multiple cooking methods for outdoor versatility.
+
+---
+
+## Cornbread Mix (Make at Home)
+### Ingredients
+- 1 cup yellow cornmeal (fine or medium grind)
+- 1 cup all-purpose flour (or gluten-free flour blend)
+- 1/4 cup coconut sugar or brown sugar
+- 1 tablespoon baking powder
+- 1 teaspoon salt
+- 1/2 teaspoon baking soda
+- 2 tablespoons ground flaxseed
+- 2 tablespoons powdered coconut milk or cashew powder (optional, for richness)
+
+### Steps
+1. **Combine dry ingredients:** In a large bowl, whisk together cornmeal, flour, coconut sugar, baking powder, salt, baking soda, ground flaxseed, and powdered coconut milk until well combined.
+
+2. **Store properly:** Transfer to an airtight container or resealable bag. Label with cooking instructions and date. Mix keeps for 6+ months at room temperature.
+
+3. **Optional portioning:** Divide into individual recipe portions if making multiple camping trips.
