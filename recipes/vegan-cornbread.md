@@ -1,4 +1,4 @@
-# DIY Vegan Cornbread
+# Vegan Cornbread
 *A versatile, just-add-water cornbread mix perfect for campfire, oven, or microwave cooking*
 
 ## Description
