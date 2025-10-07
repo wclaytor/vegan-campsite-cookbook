@@ -253,6 +253,26 @@
                             <i class="bi bi-stars mr-1"></i>Indian
                         </button>
                     </div>
+                    
+                    <!-- Verified Filter Options -->
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Status:</div>
+                        <button @click="verifiedFilter = 'all'"
+                                :class="verifiedFilter === 'all' ? 'bg-teal-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            All
+                        </button>
+                        <button @click="verifiedFilter = 'verified'"
+                                :class="verifiedFilter === 'verified' ? 'bg-teal-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-patch-check mr-1"></i>Verified
+                        </button>
+                        <button @click="verifiedFilter = 'unverified'"
+                                :class="verifiedFilter === 'unverified' ? 'bg-teal-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <i class="bi bi-hourglass-split mr-1"></i>Unverified
+                        </button>
+                    </div>
 
                     <!-- Sorting and Grouping Options -->
                     <div class="flex flex-wrap gap-4 mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
@@ -528,6 +548,7 @@
                 typeFilter: 'all', // 'all', 'dip', 'casserole', 'salad', 'bread', 'protein', 'grain', 'noodles', 'chili'
                 dietaryFilter: 'all', // 'all', 'gluten-free', 'nut-free', 'soy-free'
                 cuisineFilter: 'all', // 'all', 'american', 'asian', 'mexican', 'middle-eastern', 'indian'
+                verifiedFilter: 'all', // 'all', 'verified', 'unverified'
                 loading: true,
                 darkMode: false,
                 viewMode: 'card', // 'card' or 'list'
@@ -666,6 +687,22 @@
                                     return cuisineLower.includes('middle eastern');
                                 case 'indian':
                                     return cuisineLower.includes('indian');
+                                default:
+                                    return true;
+                            }
+                        });
+                    }
+                    
+                    // Apply verified filter
+                    if (this.verifiedFilter !== 'all') {
+                        filtered = filtered.filter(recipe => {
+                            if (!recipe.verified) return false;
+                            const verifiedLower = recipe.verified.toLowerCase();
+                            switch (this.verifiedFilter) {
+                                case 'verified':
+                                    return verifiedLower.includes('verified') && !verifiedLower.includes('unverified');
+                                case 'unverified':
+                                    return verifiedLower.includes('unverified');
                                 default:
                                     return true;
                             }
@@ -815,7 +852,8 @@
                         servingGuidelines: '',
                         notes: '',
                         source: '',
-                        dateAdded: ''
+                        dateAdded: '',
+                        verified: ''
                     };
 
                     let currentSection = '';
@@ -865,6 +903,9 @@
                             break;
                         case 'date added':
                             recipe.dateAdded = contentText.replace(/^-\s*/, '').trim();
+                            break;
+                        case 'verified':
+                            recipe.verified = contentText.replace(/^-\s*/, '').trim();
                             break;
                         case 'dietary information':
                             recipe.dietaryInfo = contentText.split('\n').map(d => d.replace(/^-\s*/, '').trim()).filter(d => d);
