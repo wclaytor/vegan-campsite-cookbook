@@ -7,7 +7,7 @@ A hearty and flavorful black bean chili featuring fire roasted tomatoes and conv
 2025.09.27
 
 ## Verified
-Unverified
+Verified
 
 ## Dietary Information
 - Vegan
