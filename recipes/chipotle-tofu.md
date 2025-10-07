@@ -4,6 +4,12 @@ The perfect protein for a burrito or bowl
 ## Description
 A lime-infused hearty plant-based protein that recreates the famous Chipotle Sofritas at home. This recipe features crumbled extra-firm tofu braised in a spicy chipotle sauce with Mexican spices, creating a flavorful and versatile protein option that can be enjoyed in bowls, burritos, tacos, and more.
 
+## Date Added
+2025.09.30
+
+## Verified
+Unverified
+
 ## Dietary Information
 - Vegan
 - Gluten-Free*

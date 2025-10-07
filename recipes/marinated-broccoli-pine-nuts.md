@@ -7,6 +7,9 @@ This refreshing marinated broccoli salad combines crisp raw broccoli florets wit
 ## Date Added
 2025.09.29
 
+## Verified
+Unverified
+
 ## Dietary Information
 - Vegan
 - Gluten-Free*

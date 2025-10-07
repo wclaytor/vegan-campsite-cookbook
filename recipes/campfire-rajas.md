@@ -7,6 +7,9 @@ This classic Mexican rajas recipe features roasted poblano chiles cut into silky
 ## Date Added
 2025.09.30
 
+## Verified
+Unverified
+
 ## Dietary Information
 - Vegan
 - Gluten-Free

@@ -7,6 +7,9 @@ A creamy, rich, and satisfying vegan mac and cheese made with a cashew-based sau
 ## Date Added
 2025.09.28
 
+## Verified
+Unverified
+
 ## Dietary Information
 - Vegan
 - Contains Nuts (Cashews)
