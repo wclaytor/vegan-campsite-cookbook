@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA Icon Preview - Vegan Campsite Cookbook</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #16a34a;
+            text-align: center;
+        }
+        .preview-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .icon-example {
+            text-align: center;
+        }
+        .icon-example svg {
+            border-radius: 20%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .icon-label {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        .details {
+            background: #f0fdf4;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #16a34a;
+            margin: 20px 0;
+        }
+        .details h3 {
+            margin-top: 0;
+            color: #16a34a;
+        }
+        .color-swatch {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            vertical-align: middle;
+            margin-right: 10px;
+            border: 2px solid #ddd;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌲 PWA Icon Preview</h1>
+    
+    <div class="preview-container">
+        <h2>Icon Appearance on Different Devices</h2>
+        
+        <div class="icon-grid">
+            <div class="icon-example">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="120" height="120">
+                    <circle cx="96" cy="96" r="80" fill="#16a34a"/>
+                    <path d="M96 40 L96 100 M70 70 L96 100 L122 70" stroke="white" stroke-width="8" stroke-linecap="round" fill="none"/>
+                </svg>
+                <div class="icon-label">iOS Home Screen</div>
+            </div>
+            
+            <div class="icon-example">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="120" height="120">
+                    <circle cx="96" cy="96" r="80" fill="#16a34a"/>
+                    <path d="M96 40 L96 100 M70 70 L96 100 L122 70" stroke="white" stroke-width="8" stroke-linecap="round" fill="none"/>
+                </svg>
+                <div class="icon-label">Android Home Screen</div>
+            </div>
+            
+            <div class="icon-example">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="120" height="120">
+                    <circle cx="96" cy="96" r="80" fill="#16a34a"/>
+                    <path d="M96 40 L96 100 M70 70 L96 100 L122 70" stroke="white" stroke-width="8" stroke-linecap="round" fill="none"/>
+                </svg>
+                <div class="icon-label">Desktop Application</div>
+            </div>
+        </div>
+        
+        <div class="details">
+            <h3>🎨 Design Specifications</h3>
+            <p><strong>Size:</strong> 192x192 pixels (converted from SVG)</p>
+            <p><strong>Background Color:</strong> <span class="color-swatch" style="background: #16a34a;"></span><code>#16a34a</code> (Green-600)</p>
+            <p><strong>Icon Color:</strong> <span class="color-swatch" style="background: white;"></span><code>#ffffff</code> (White)</p>
+            <p><strong>Shape:</strong> Circular background with centered tree/pine symbol</p>
+        </div>
+        
+        <div class="details">
+            <h3>📱 App Appearance</h3>
+            <p><strong>App Name:</strong> Vegan Campsite Cookbook</p>
+            <p><strong>Short Name:</strong> Vegan Campsite (shown on home screen)</p>
+            <p><strong>Theme Color:</strong> <span class="color-swatch" style="background: #16a34a;"></span><code>#16a34a</code></p>
+            <p><strong>Background Color:</strong> <span class="color-swatch" style="background: #f0fdf4;"></span><code>#f0fdf4</code> (Light Green)</p>
+            <p><strong>Display Mode:</strong> Standalone (no browser UI)</p>
+        </div>
+        
+        <div class="details">
+            <h3>✨ What Users Will See</h3>
+            <ul>
+                <li><strong>Installation:</strong> Users can tap "Add to Home Screen" or install button</li>
+                <li><strong>Home Screen:</strong> Green circular icon with white tree symbol</li>
+                <li><strong>Launch:</strong> Light green splash screen with centered icon</li>
+                <li><strong>App Window:</strong> Opens in full-screen without browser toolbar</li>
+                <li><strong>Status Bar:</strong> Green theme color on Android, translucent on iOS</li>
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <p style="color: #666;">This icon will automatically convert from SVG to PNG when the PWA loads.</p>
+            <p style="color: #16a34a; font-weight: bold;">Icon design matches the site's camping and outdoor theme! 🏕️</p>
+        </div>
+    </div>
+</body>
+</html>

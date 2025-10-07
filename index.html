@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vegan Campsite Cookbook</title>
     
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Vegan Campsite">
+    <link rel="apple-touch-icon" href="">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Ccircle cx='96' cy='96' r='80' fill='%2316a34a'/%3E%3Cpath d='M96 40 L96 100 M70 70 L96 100 L122 70' stroke='white' stroke-width='8' stroke-linecap='round' fill='none'/%3E%3C/svg%3E" sizes="any" type="image/svg+xml">
+    
     <!-- Alpine.js for reactivity -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
@@ -550,6 +558,119 @@
     </div>
 
     <script>
+        // === PWA FUNCTIONALITY ===
+        // Install prompt listener
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('PWA install prompt available!');
+        });
+
+        const iconSize = 192;
+
+        // Dynamically created manifest
+        const manifest = {
+            name: 'Vegan Campsite Cookbook',
+            short_name: 'Vegan Campsite',
+            description: 'Plant-based recipes for outdoor adventures',
+            display: 'standalone',
+            theme_color: '#16a34a',
+            background_color: '#f0fdf4',
+            start_url: window.location.href,
+        };
+
+        // Convert the SVG favicon to PNG for platforms that don't support SVG
+        // (Safari and Firefox on Android)
+        (async function initPWA() {
+            const svgIconLink = document.querySelector('link[rel="icon"]');
+
+            // Convert from SVG string to PNG data URL
+            const pngDataUrl = await svgToPng(svgIconLink.href, iconSize);
+
+            // Set the icon meta tags to the new PNG
+            setIcon("link[rel='icon']", pngDataUrl, iconSize);
+            setIcon("link[rel='apple-touch-icon']", pngDataUrl);
+
+            // Dynamically create manifest with PNG icon
+            manifest.icons = [{
+                src: pngDataUrl,
+                sizes: `${iconSize}x${iconSize}`,
+                type: 'image/png'
+            }];
+
+            // Set the manifest meta tag data url
+            setManifest(manifest);
+
+            // Generate and set the iOS startup image
+            const startupImageDataUrl = await createStartupImage(
+                svgIconLink.href,
+                manifest.background_color
+            );
+            const startupLink = document.createElement('link');
+            startupLink.rel = 'apple-touch-startup-image';
+            startupLink.href = startupImageDataUrl;
+            document.head.appendChild(startupLink);
+        })();
+
+        function setManifest(manifest) {
+            const link = document.createElement('link');
+            link.rel = 'manifest';
+            const b64manifest = btoa(JSON.stringify(manifest));
+            link.href = "data:application/json;base64," + b64manifest;
+            document.head.appendChild(link);
+        }
+
+        function setIcon(query, iconurl, size) {
+            const iconLink = document.querySelector(query);
+            iconLink.href = iconurl;
+            iconLink.type = 'image/png';
+            if (size) {
+                iconLink.setAttribute('sizes', `${size}x${size}`);
+            }
+        }
+
+        function svgToPng(svgDataUrl, size) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = size;
+                    canvas.height = size;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, size, size);
+                    const pngDataUrl = canvas.toDataURL('image/png');
+                    resolve(pngDataUrl);
+                };
+                img.onerror = reject;
+                img.src = svgDataUrl;
+            });
+        }
+
+        // Safari needs a startup image
+        function createStartupImage(svgDataUrl, bgColor) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    const dpr = window.devicePixelRatio || 1;
+                    const canvas = document.createElement('canvas');
+                    canvas.width = window.screen.width * dpr;
+                    canvas.height = window.screen.height * dpr;
+                    const ctx = canvas.getContext('2d');
+
+                    ctx.fillStyle = bgColor;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    const iconDisplaySize = canvas.width * 0.25;
+                    const x = (canvas.width - iconDisplaySize) / 2;
+                    const y = (canvas.height - iconDisplaySize) / 2;
+                    ctx.drawImage(img, x, y, iconDisplaySize, iconDisplaySize);
+
+                    resolve(canvas.toDataURL('image/png'));
+                };
+                img.onerror = reject;
+                img.src = svgDataUrl;
+            });
+        }
+
+        // === ALPINE.JS APP ===
         function cookbookApp() {
             return {
                 // === STATE ===
