@@ -7,6 +7,9 @@ This bright yellow curried "chicken" salad captures all the classic flavors of t
 ## Date Added
 2025.09.29
 
+## Verified
+Unverified
+
 ## Dietary Information
 - Vegan
 - Contains Soy (if using TVP or tofu)

@@ -7,6 +7,9 @@ A camping-friendly version of Chipotle's famous cilantro lime brown rice, made w
 ## Date Added
 2025.10.02
 
+## Verified
+Unverified
+
 ## Dietary Information
 - Vegan 
 - Gluten-Free

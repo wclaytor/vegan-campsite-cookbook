@@ -7,6 +7,9 @@ A thick paste or spread made from ground chickpeas and sesame seeds, olive oil, 
 ## Date Added
 2025.09.27
 
+## Verified
+Unverified
+
 ## Dietary Information
 - Vegan
 - Gluten-Free

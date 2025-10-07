@@ -6,6 +6,9 @@ Cold, nutty noodles tossed in a flavorful peanut–sesame dressing. Easy to make
 ## Date Added
 2025.09.28
 
+## Verified
+Unverified
+
 ## Dietary Information
 - Vegan
 - Contains Peanuts

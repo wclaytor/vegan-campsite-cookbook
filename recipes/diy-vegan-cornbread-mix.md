@@ -7,6 +7,9 @@ This homemade vegan cornbread mix eliminates the need for eggs, milk, or oil unt
 ## Date Added
 2025.09.30
 
+## Verified
+Unverified
+
 ## Dietary Information
 - Vegan
 - Gluten-Free*
