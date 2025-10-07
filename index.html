@@ -115,8 +115,9 @@
                     </div>
                     
                     <!-- Course Filter Options -->
-                    <div class="flex flex-wrap gap-2 mt-3">
-                        <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Course:</div>
+                    <div class="grid grid-cols-[auto_1fr] gap-2 items-start mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20">Course:</div>
+                        <div class="flex flex-wrap gap-2">
                         <button @click="courseFilter = 'all'"
                                 :class="courseFilter === 'all' ? 'bg-orange-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
@@ -142,11 +143,13 @@
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-cake2 mr-1"></i>Dessert
                         </button>
+                        </div>
                     </div>
                     
                     <!-- Type Filter Options -->
-                    <div class="flex flex-wrap gap-2 mt-3">
-                        <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Type:</div>
+                    <div class="grid grid-cols-[auto_1fr] gap-2 items-start mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20">Type:</div>
+                        <div class="flex flex-wrap gap-2">
                         <button @click="typeFilter = 'all'"
                                 :class="typeFilter === 'all' ? 'bg-pink-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
@@ -192,11 +195,13 @@
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-fire mr-1"></i>Chili
                         </button>
+                        </div>
                     </div>
                     
                     <!-- Dietary Filter Options -->
-                    <div class="flex flex-wrap gap-2 mt-3">
-                        <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Dietary:</div>
+                    <div class="grid grid-cols-[auto_1fr] gap-2 items-start mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20">Dietary:</div>
+                        <div class="flex flex-wrap gap-2">
                         <button @click="dietaryFilter = 'all'"
                                 :class="dietaryFilter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
@@ -217,11 +222,13 @@
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-x-circle mr-1"></i>Soy-Free
                         </button>
+                        </div>
                     </div>
                     
                     <!-- Cuisine Filter Options -->
-                    <div class="flex flex-wrap gap-2 mt-3">
-                        <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Cuisine:</div>
+                    <div class="grid grid-cols-[auto_1fr] gap-2 items-start mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20">Cuisine:</div>
+                        <div class="flex flex-wrap gap-2">
                         <button @click="cuisineFilter = 'all'"
                                 :class="cuisineFilter === 'all' ? 'bg-purple-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
@@ -252,11 +259,13 @@
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-stars mr-1"></i>Indian
                         </button>
+                        </div>
                     </div>
                     
                     <!-- Verified Filter Options -->
-                    <div class="flex flex-wrap gap-2 mt-3">
-                        <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Status:</div>
+                    <div class="grid grid-cols-[auto_1fr] gap-2 items-start mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20">Status:</div>
+                        <div class="flex flex-wrap gap-2">
                         <button @click="verifiedFilter = 'all'"
                                 :class="verifiedFilter === 'all' ? 'bg-teal-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
@@ -272,6 +281,7 @@
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-hourglass-split mr-1"></i>Unverified
                         </button>
+                        </div>
                     </div>
 
                     <!-- Sorting and Grouping Options -->
