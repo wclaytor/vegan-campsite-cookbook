@@ -456,7 +456,7 @@
 
             <!-- Recipe Modal -->
             <div x-show="showRecipeModal" 
-                 @click="showRecipeModal = false"
+                 @click="closeRecipeModal()"
                  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
                 <div @click.stop 
                      class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-4xl" 
@@ -466,7 +466,7 @@
                     <div class="bg-white dark:bg-gray-800 p-6 border-b border-gray-200 dark:border-gray-600 rounded-t-lg">
                         <div class="flex items-center justify-between">
                             <h2 x-show="selectedRecipe" class="text-2xl font-bold text-gray-800 dark:text-gray-100" x-text="selectedRecipe?.title"></h2>
-                            <button @click="showRecipeModal = false" 
+                            <button @click="closeRecipeModal()" 
                                     class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-2xl">
                                 <i class="bi bi-x-lg"></i>
                             </button>
@@ -915,6 +915,9 @@
                     
                     // Load recipes
                     await this.loadRecipes();
+                    
+                    // Check for recipe URL parameter and open if found
+                    this.checkRecipeUrlParameter();
                 },
 
                 async loadRecipes() {
@@ -1139,6 +1142,43 @@
                 openRecipeModal(recipe) {
                     this.selectedRecipe = recipe;
                     this.showRecipeModal = true;
+                    // Update URL with recipe parameter
+                    this.updateUrlParameter(recipe.id);
+                },
+                
+                closeRecipeModal() {
+                    this.showRecipeModal = false;
+                    this.selectedRecipe = null;
+                    // Clear URL parameter when closing modal
+                    this.clearUrlParameter();
+                },
+                
+                checkRecipeUrlParameter() {
+                    // Check if there's a recipe parameter in the URL
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const recipeId = urlParams.get('recipe');
+                    
+                    if (recipeId) {
+                        // Find and open the recipe
+                        const recipe = this.recipes.find(r => r.id === recipeId);
+                        if (recipe) {
+                            this.openRecipeModal(recipe);
+                        }
+                    }
+                },
+                
+                updateUrlParameter(recipeId) {
+                    // Update URL without reloading the page
+                    const url = new URL(window.location);
+                    url.searchParams.set('recipe', recipeId);
+                    window.history.pushState({}, '', url);
+                },
+                
+                clearUrlParameter() {
+                    // Remove recipe parameter from URL
+                    const url = new URL(window.location);
+                    url.searchParams.delete('recipe');
+                    window.history.pushState({}, '', url);
                 },
 
                 toggleDarkMode() {
