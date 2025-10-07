@@ -9,6 +9,7 @@ A modern, single-file Alpine.js application for browsing plant-based recipes per
 - **Recipe Index**: Automatically loads and displays recipes from `/recipes/*.md` files
 - **Smart Search**: Search across recipe names, descriptions, ingredients, and cuisines
 - **Recipe Filters**: Filter by meal type (Appetizers, Main Dishes) and dietary preferences
+- **Shareable Recipe Links**: Share direct links to specific recipes with URL parameters
 - **Responsive Design**: Mobile-friendly interface perfect for camping
 - **Dark Mode**: Toggle between light and dark themes
 - **Offline Ready**: Works offline after initial load
@@ -28,7 +29,26 @@ A modern, single-file Alpine.js application for browsing plant-based recipes per
 2. **Search**: Use the search bar to find recipes by name, ingredient, or cuisine
 3. **Filter**: Click filter buttons to show specific types of recipes
 4. **View Details**: Click any recipe card to see full ingredients and instructions
-5. **Dark Mode**: Toggle the theme using the moon/sun icon
+5. **Share Recipes**: Copy the URL when viewing a recipe to share with friends (e.g., `index.html?recipe=hummus-moosewood`)
+6. **Dark Mode**: Toggle the theme using the moon/sun icon
+
+## 🔗 Sharing Recipes
+
+You can share direct links to specific recipes with friends! When you open a recipe, the URL automatically updates with a recipe parameter:
+
+```
+https://wclaytor.github.io/vegan-campsite-cookbook/index.html?recipe=hummus-moosewood
+```
+
+**How it works:**
+- Click any recipe card to open its details
+- The URL updates automatically with `?recipe=RECIPE_ID`
+- Copy and share the URL with friends
+- When they visit the link, the recipe opens automatically
+
+**Recipe IDs** are based on the markdown filename without the `.md` extension. For example:
+- `hummus-moosewood.md` → `?recipe=hummus-moosewood`
+- `chili-fire-roasted.md` → `?recipe=chili-fire-roasted`
 
 ## 🍽️ Adding Recipes
 
