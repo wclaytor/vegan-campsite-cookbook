@@ -380,7 +380,14 @@
                                                     <span class="text-xs px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full" x-text="course"></span>
                                                 </template>
                                             </div>
-                                            <i class="bi bi-arrow-right-circle text-green-500 text-lg"></i>
+                                            <div class="flex items-center gap-2">
+                                                <button @click="shareRecipe(recipe, $event)" 
+                                                        class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                                                        title="Share recipe">
+                                                    <i class="bi bi-share text-lg"></i>
+                                                </button>
+                                                <i class="bi bi-arrow-right-circle text-green-500 text-lg"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -426,6 +433,11 @@
                                                     <i class="bi bi-people mr-1"></i>
                                                     <span x-text="recipe.servings"></span>
                                                 </span>
+                                                <button @click="shareRecipe(recipe, $event)" 
+                                                        class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                                                        title="Share recipe">
+                                                    <i class="bi bi-share text-lg"></i>
+                                                </button>
                                                 <i class="bi bi-arrow-right-circle text-green-500 text-lg ml-2"></i>
                                             </div>
                                         </div>
@@ -466,10 +478,18 @@
                     <div class="bg-white dark:bg-gray-800 p-6 border-b border-gray-200 dark:border-gray-600 rounded-t-lg">
                         <div class="flex items-center justify-between">
                             <h2 x-show="selectedRecipe" class="text-2xl font-bold text-gray-800 dark:text-gray-100" x-text="selectedRecipe?.title"></h2>
-                            <button @click="closeRecipeModal()" 
-                                    class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-2xl">
-                                <i class="bi bi-x-lg"></i>
-                            </button>
+                            <div class="flex items-center gap-3">
+                                <button @click="shareRecipe(selectedRecipe, $event)" 
+                                        x-show="selectedRecipe"
+                                        class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors text-xl"
+                                        title="Share recipe">
+                                    <i class="bi bi-share"></i>
+                                </button>
+                                <button @click="closeRecipeModal()" 
+                                        class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-2xl">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     
@@ -553,6 +573,19 @@
                         </template>
                     </div>
                 </div>
+            </div>
+
+            <!-- Copy Success Feedback Toast -->
+            <div x-show="showCopyFeedback" 
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 translate-y-4"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 translate-y-4"
+                 class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 z-50">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Recipe link copied to clipboard!</span>
             </div>
         </div>
     </div>
@@ -689,6 +722,7 @@
                 selectedRecipe: null,
                 groupBy: 'cuisine', // 'none', 'cuisine', 'meal', 'course', 'type'
                 sortBy: 'alphabetical', // 'alphabetical', 'date-added'
+                showCopyFeedback: false, // Show feedback when recipe link is copied
 
                 // === COMPUTED PROPERTIES ===
                 get filteredRecipes() {
@@ -1179,6 +1213,31 @@
                     const url = new URL(window.location);
                     url.searchParams.delete('recipe');
                     window.history.pushState({}, '', url);
+                },
+
+                shareRecipe(recipe, event) {
+                    // Stop event propagation to prevent opening modal when clicking share button
+                    if (event) {
+                        event.stopPropagation();
+                    }
+                    
+                    // Build the shareable URL
+                    const url = new URL(window.location.origin + window.location.pathname);
+                    url.searchParams.set('recipe', recipe.id);
+                    const shareUrl = url.toString();
+                    
+                    // Copy to clipboard
+                    navigator.clipboard.writeText(shareUrl).then(() => {
+                        // Show feedback
+                        this.showCopyFeedback = true;
+                        setTimeout(() => {
+                            this.showCopyFeedback = false;
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy URL:', err);
+                        // Fallback: show alert with URL
+                        alert('Share this recipe:\n' + shareUrl);
+                    });
                 },
 
                 toggleDarkMode() {
