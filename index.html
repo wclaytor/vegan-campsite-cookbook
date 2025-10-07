@@ -85,8 +85,9 @@
                     </div>
 
                     <!-- Meal Filter Options -->
-                    <div class="flex flex-wrap gap-2">
-                        <div class="text-sm text-gray-600 dark:text-gray-400 mr-2 self-center">Meal:</div>
+                    <div class="grid grid-cols-[auto_1fr] items-start mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20 pr-2">Meal:</div>
+                        <div class="flex flex-wrap gap-2">
                         <button @click="mealFilter = 'all'"
                                 :class="mealFilter === 'all' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
@@ -112,11 +113,12 @@
                                 class="px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-300">
                             <i class="bi bi-cup-straw mr-1"></i>Snack
                         </button>
+                        </div>
                     </div>
                     
                     <!-- Course Filter Options -->
-                    <div class="grid grid-cols-[auto_1fr] gap-2 items-start mt-3">
-                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20">Course:</div>
+                    <div class="grid grid-cols-[auto_1fr] items-start mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20 pr-2">Course:</div>
                         <div class="flex flex-wrap gap-2">
                         <button @click="courseFilter = 'all'"
                                 :class="courseFilter === 'all' ? 'bg-orange-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
@@ -147,8 +149,8 @@
                     </div>
                     
                     <!-- Type Filter Options -->
-                    <div class="grid grid-cols-[auto_1fr] gap-2 items-start mt-3">
-                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20">Type:</div>
+                    <div class="grid grid-cols-[auto_1fr] items-start mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20 pr-2">Type:</div>
                         <div class="flex flex-wrap gap-2">
                         <button @click="typeFilter = 'all'"
                                 :class="typeFilter === 'all' ? 'bg-pink-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
@@ -199,8 +201,8 @@
                     </div>
                     
                     <!-- Dietary Filter Options -->
-                    <div class="grid grid-cols-[auto_1fr] gap-2 items-start mt-3">
-                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20">Dietary:</div>
+                    <div class="grid grid-cols-[auto_1fr] items-start mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20 pr-2">Dietary:</div>
                         <div class="flex flex-wrap gap-2">
                         <button @click="dietaryFilter = 'all'"
                                 :class="dietaryFilter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
@@ -226,8 +228,8 @@
                     </div>
                     
                     <!-- Cuisine Filter Options -->
-                    <div class="grid grid-cols-[auto_1fr] gap-2 items-start mt-3">
-                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20">Cuisine:</div>
+                    <div class="grid grid-cols-[auto_1fr] items-start mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20 pr-2">Cuisine:</div>
                         <div class="flex flex-wrap gap-2">
                         <button @click="cuisineFilter = 'all'"
                                 :class="cuisineFilter === 'all' ? 'bg-purple-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
@@ -263,8 +265,8 @@
                     </div>
                     
                     <!-- Verified Filter Options -->
-                    <div class="grid grid-cols-[auto_1fr] gap-2 items-start mt-3">
-                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20">Status:</div>
+                    <div class="grid grid-cols-[auto_1fr] items-start mt-3">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 pt-1.5 w-20 pr-2">Status:</div>
                         <div class="flex flex-wrap gap-2">
                         <button @click="verifiedFilter = 'all'"
                                 :class="verifiedFilter === 'all' ? 'bg-teal-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'"
